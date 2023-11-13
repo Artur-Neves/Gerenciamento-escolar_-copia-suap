@@ -30,6 +30,7 @@ public class Turma_Controller {
     }
     public void iniciar() {
        view.setExtendedState( Turma.MAXIMIZED_BOTH);
+    view.getText1().setText("+");
     view.getBtn2().setVisible(false);  view.getText2().setVisible(false);
     view.getBtn3().setVisible(false);  view.getText3().setVisible(false);
     view.getBtn4().setVisible(false);  view.getText4().setVisible(false);
@@ -130,14 +131,13 @@ public class Turma_Controller {
     public void editarTurma() {
        Cadastro_Turma t = new Cadastro_Turma(null, true,materia, "");
        t.setVisible(true);
-          botoesAtivos();
+          iniciar();
     }
 
     public void excluirTurma() {
         Cadastro_Turma t = new Cadastro_Turma(null, true,materia, 0);
        t.setVisible(true);
        iniciar();
-       botoesAtivos();
        
     }
     
