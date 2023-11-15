@@ -84,7 +84,7 @@ Cadastro_Atividade_Controller c;
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Formato:");
+        jLabel4.setText("Cálculo:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Data:");

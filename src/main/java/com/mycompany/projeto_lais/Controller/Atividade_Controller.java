@@ -45,7 +45,7 @@ public class Atividade_Controller {
     public Atividade_Controller(Atividade view, Turma_Materia_Model turmamateria) {
         this.view = view;
         this.turmamateria=turmamateria;
-        dm = (DefaultTableModel) view.getjTable1().getModel();
+        //dm = (DefaultTableModel) view.getjTable1().getModel();
         atividades = new ArrayList<>();
         dao = new Atividade_dao();
         dao_aluno = new Aluno_dao();
