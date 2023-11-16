@@ -4,17 +4,23 @@
  */
 package com.mycompany.projeto_lais.View;
 
+import com.mycompany.projeto_lais.Controller.Atribuir_Nota_Controller;
+import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Artur
  */
 public class Atribuir_Nota extends javax.swing.JFrame {
-
+ Atribuir_Nota_Controller c;
     /**
      * Creates new form Atribuir_Nota
      */
-    public Atribuir_Nota() {
+    public Atribuir_Nota(Turma_Materia_Model turmamateria) {
         initComponents();
+        iniciar(turmamateria);
+        
     }
 
     /**
@@ -216,15 +222,15 @@ public class Atribuir_Nota extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-       // c.voltar();
+        c.voltar();
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-      //  c.entrarAluno();
+        c.entrarAluno();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        //c.entrarAula();
+        c.entrarAula();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -261,7 +267,7 @@ public class Atribuir_Nota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Atribuir_Nota().setVisible(true);
+                new Atribuir_Nota(null).setVisible(true);
             }
         });
     }
@@ -281,4 +287,14 @@ public class Atribuir_Nota extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+public void iniciar(Turma_Materia_Model turmamateria){
+ c = new Atribuir_Nota_Controller(this, turmamateria);
+    c.iniciar();
+}
+
+ public void imprimir_Na_Tela(String message) {
+       JOptionPane.showMessageDialog(null, message);
+    
+}
+
 }

@@ -28,8 +28,8 @@ Atividade_Controller c;
     public Atividade(Turma_Materia_Model turmamateria) {
         
         initComponents();
-       // c = new Atividade_Controller(this, turmamateria);
-       // iniciar();
+        c = new Atividade_Controller(this, turmamateria);
+        iniciar();
     }
 
     /**
@@ -42,13 +42,9 @@ Atividade_Controller c;
     private void initComponents() {
 
         jLabel0 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -67,15 +63,13 @@ Atividade_Controller c;
         jLabel0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel0.setText("Avaliações");
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.gray));
-
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Descrição", "Formato", "Valor", "Unidade", "Data"
+                "Descrição", "Cálculo", "Valor", "Unidade", "Data"
             }
         ) {
             Class[] types = new Class [] {
@@ -97,96 +91,29 @@ Atividade_Controller c;
         jTable1.setName(""); // NOI18N
         jTable1.setPreferredSize(new java.awt.Dimension(1530, 577));
         jTable1.setRowHeight(25);
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane4.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(300);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
 
-        jTabbedPane1.addTab("Unidade 1", jScrollPane3);
-
-        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Descrição", "Formato", "Valor", "Unidade", "Data"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
-        jTable2.setMinimumSize(new java.awt.Dimension(1530, 577));
-        jTable2.setName(""); // NOI18N
-        jTable2.setPreferredSize(new java.awt.Dimension(1530, 577));
-        jTable2.setRowHeight(25);
-        jScrollPane4.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(300);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
-
-        jTabbedPane1.addTab("Unidade 2", jScrollPane4);
-
-        jTable3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Descrição", "Formato", "Valor", "Unidade", "Data"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable3.setMinimumSize(new java.awt.Dimension(1530, 577));
-        jTable3.setName(""); // NOI18N
-        jTable3.setPreferredSize(new java.awt.Dimension(1530, 577));
-        jTable3.setRowHeight(25);
-        jScrollPane5.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setPreferredWidth(300);
-            jTable3.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
-
-        jTabbedPane1.addTab("Unidade 3", jScrollPane5);
 
         jMenu1.setText("Operações");
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem5.setText("Atribuir Notas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -262,8 +189,11 @@ Atividade_Controller c;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1534, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4)
+                    .addComponent(jLabel0, javax.swing.GroupLayout.DEFAULT_SIZE, 1538, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -271,9 +201,11 @@ Atividade_Controller c;
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel0, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(38, 38, 38)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(1560, 795));
@@ -386,21 +318,7 @@ Atividade_Controller c;
         this.jMenuItem9 = jMenuItem9;
     }
 
-    public JScrollPane getjScrollPane3() {
-        return jScrollPane3;
-    }
-
-    public void setjScrollPane3(JScrollPane jScrollPane3) {
-        this.jScrollPane3 = jScrollPane3;
-    }
-
-    public JTabbedPane getjTabbedPane1() {
-        return jTabbedPane1;
-    }
-
-    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
-        this.jTabbedPane1 = jTabbedPane1;
-    }
+    
 
     
 
@@ -410,6 +328,31 @@ Atividade_Controller c;
 
     public void setjTable1(JTable jTable1) {
         this.jTable1 = jTable1;
+    }
+
+    public JScrollPane getjScrollPane4() {
+        return jScrollPane4;
+    }
+
+    public void setjScrollPane4(JScrollPane jScrollPane4) {
+        this.jScrollPane4 = jScrollPane4;
+    }
+
+
+    public JTable getjTable2() {
+        return jTable1;
+    }
+
+    public void setjTable2(JTable jTable2) {
+        this.jTable1 = jTable2;
+    }
+
+    public JComboBox<String> getjComboBox1() {
+        return jComboBox1;
+    }
+
+    public void setjComboBox1(JComboBox<String> jComboBox1) {
+        this.jComboBox1 = jComboBox1;
     }
 
   
@@ -428,16 +371,24 @@ Atividade_Controller c;
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-      //  c.voltar();
+       c.voltar();
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-      //  c.entrarAluno();
+      c.entrarAluno();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-     //   c.entrarAula();
+       c.entrarAula();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        c.atualizar();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+       c.atribuirNota();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,6 +427,7 @@ Atividade_Controller c;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel0;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -488,16 +440,11 @@ Atividade_Controller c;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 public void iniciar(){
-    //c.iniciar();
+    c.iniciar();
 }
 
  public void imprimir_Na_Tela(String message) {

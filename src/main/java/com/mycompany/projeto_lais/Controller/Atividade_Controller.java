@@ -15,6 +15,7 @@ import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import com.mycompany.projeto_lais.View.Aluno;
 import com.mycompany.projeto_lais.View.Atividade;
+import com.mycompany.projeto_lais.View.Atribuir_Nota;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Cadastro_Atividade;
 import com.mycompany.projeto_lais.View.Turma;
@@ -45,7 +46,7 @@ public class Atividade_Controller {
     public Atividade_Controller(Atividade view, Turma_Materia_Model turmamateria) {
         this.view = view;
         this.turmamateria=turmamateria;
-        //dm = (DefaultTableModel) view.getjTable1().getModel();
+        dm = (DefaultTableModel) view.getjTable1().getModel();
         atividades = new ArrayList<>();
         dao = new Atividade_dao();
         dao_aluno = new Aluno_dao();
@@ -112,7 +113,7 @@ public class Atividade_Controller {
  if (lista!=null){
         for (Atividade_Model  atividade : lista) {
             dados[0] = atividade.getDescricao();
-            dados[1] = ""+atividade.getFormato();
+            dados[1] = ""+atividade.getCalculo();
             dados[2] = ""+atividade.getValor();
             dados[3] = atividade.getUnidade();
             dados[4] = formato.format(atividade.getData());
@@ -121,6 +122,12 @@ public class Atividade_Controller {
         }
 view.getjTable1().setModel(dm);
     }}
+
+    public void atribuirNota() {
+        Atribuir_Nota n = new Atribuir_Nota(turmamateria);
+        n.setVisible(true);
+        view.hide();
+    }
 
     
 }

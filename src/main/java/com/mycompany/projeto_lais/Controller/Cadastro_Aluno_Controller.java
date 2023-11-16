@@ -5,8 +5,10 @@
 package com.mycompany.projeto_lais.Controller;
 import com.mycompany.projeto_lais.Enums.Situacao_Enum;
 import com.mycompany.projeto_lais.Model.Aluno_Model;
+import com.mycompany.projeto_lais.Model.Atividade_Model;
 import com.mycompany.projeto_lais.Model.Aula_Model;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
+import com.mycompany.projeto_lais.Model.Dao.Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aula_dao;
 import com.mycompany.projeto_lais.Model.Dao.Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_Materia_dao;
@@ -29,6 +31,7 @@ public class Cadastro_Aluno_Controller {
     private Aluno_Model aluno;
     private Turma_dao dao_turma = new Turma_dao();
     private Aula_dao daof;
+    private Atividade_dao dao_atvd;
     private Turma_Materia_Model turmamateria;
     private Turma_Materia_dao dao_tm;
     private Materia_dao dao_materia;
@@ -42,7 +45,8 @@ public class Cadastro_Aluno_Controller {
         dao_tm = new Turma_Materia_dao();
         dao_materia = new Materia_dao();
         dao_turma= new Turma_dao();
-       
+        dao_atvd = new Atividade_dao();
+        
         this. turmamateria = dao_tm.findbyturmamateria(turmamateria);
 
     }
@@ -55,6 +59,7 @@ public class Cadastro_Aluno_Controller {
         dao_tm = new Turma_Materia_dao();
         dao_materia = new Materia_dao();
         dao_turma= new Turma_dao();
+        dao_atvd = new Atividade_dao();
         this. turmamateria = dao_tm.findbyturmamateria(turmamateria);
     }
 
@@ -77,6 +82,11 @@ public class Cadastro_Aluno_Controller {
                     a.addAluno(model);
                     daof.editar(a);
                 }}
+                    if (dao_atvd.findByTurmaMateria(turmamateria, "")!=null){
+                        for(Atividade_Model ativd : dao_atvd.findByTurmaMateria(turmamateria, "")){
+                            ativd.addAluno(model);
+                            dao_atvd.update(ativd);
+                        }} 
                     view.imprimir_Na_Tela("Aluno cadastrado com sucesso!");
                     view.hide();
                 }

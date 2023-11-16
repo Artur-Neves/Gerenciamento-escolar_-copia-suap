@@ -28,7 +28,7 @@ public class Atividade_Model {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
      private int id;
-    private String formato;
+    private String Calculo;
     private Double valor;
     private Date data;
     @Column(length=Length.LONG)
@@ -44,13 +44,13 @@ public class Atividade_Model {
 
     public Atividade_Model(int id, String metodo, Double notaMaxima, Date dataDeAnexo) {
         this.id = id;
-        this.formato = formato;
+        this.Calculo = Calculo;
         this.valor = notaMaxima;
         this.data = dataDeAnexo;
     }
 
     public Atividade_Model(String formato, Double valor, Date data, String Descricao, String unidade, Turma_Materia_Model turmamateria) {
-        this.formato = formato;
+        this.Calculo = formato;
         this.valor = valor;
         this.data = data;
         this.descricao = Descricao;
@@ -69,12 +69,12 @@ public class Atividade_Model {
         this.id = id;
     }
 
-    public String getFormato() {
-        return formato;
+    public String getCalculo() {
+        return Calculo;
     }
 
-    public void setFormato(String formato) {
-        this.formato = formato;
+    public void setCalculo(String calculo) {
+        this.Calculo = calculo;
     }
 
     public Double getValor() {

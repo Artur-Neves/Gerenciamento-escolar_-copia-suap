@@ -4,6 +4,7 @@
  */
 package com.mycompany.projeto_lais.Controller;
 
+import com.mycompany.projeto_lais.Enums.Calculos_Enum;
 import com.mycompany.projeto_lais.Enums.Formato_Enum;
 import com.mycompany.projeto_lais.Enums.Unidade_Enum;
 import com.mycompany.projeto_lais.Model.Aluno_Atividade_Model;
@@ -60,14 +61,14 @@ public class Cadastro_Atividade_Controller {
 
     public void iniciar() {
         view.getjComboBox3().removeAll();
-     for(Formato_Enum formato :Formato_Enum.values()){
+     for(Calculos_Enum formato :Calculos_Enum.values()){
          view.getjComboBox3().addItem(formato.toString());
      }
      view.getjComboBox4().removeAll();
      for (Unidade_Enum unidade : Unidade_Enum.values()){
          view.getjComboBox4().addItem(unidade.toString());    }
       if (!view.getjButton3().getText().equals("Salvar")){
-        view.getjComboBox3().setSelectedItem(model.getFormato());
+        view.getjComboBox3().setSelectedItem(model.getCalculo());
         view.getjComboBox4().setSelectedItem(model.getUnidade());
         view.getjTextField1().setText(""+model.getValor());
         view.getjDateChooser1().setDate(model.getData());
@@ -106,7 +107,7 @@ public class Cadastro_Atividade_Controller {
         else if (view.getjButton3().getText().equals("Editar")){
             model.setUnidade(unidade);
             model.setData(data);
-            model.setFormato(formato);
+            model.setCalculo(formato);
             model.setDescricao(descricao);
             model.setValor(valor);
             if (dao.update(model)){
