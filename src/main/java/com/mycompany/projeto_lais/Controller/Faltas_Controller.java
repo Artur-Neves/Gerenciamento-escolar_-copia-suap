@@ -151,11 +151,10 @@ antes =valorcelulas();
             boolean validade= true;
             List <Frequencia_Model> frequencia = new ArrayList<>();
             for (int i = 0; i < depois.size(); i++) {
-               
                     Aluno_Model alunoc = nome.get(depois.get(i).linha);
                     Aula_Model aulac = data.get(depois.get(i).coluna);
                 if (isInteger(depois.get(i).valor)){
-                    int a =Integer.parseInt(depois.get(i).valor);
+                    int a = Integer.parseInt(depois.get(i).valor);
                     int b = Integer.parseInt(antes.get(i).valor);
                     if (a!=b){
                         Frequencia_Model f =daof.findByAlunoAula(alunoc, aulac);
@@ -166,7 +165,7 @@ antes =valorcelulas();
                             }
                             else {
                                 Toolkit.getDefaultToolkit().beep();
-                                view.imprimirNaTela("valor invalido", "Error 100");
+                                view.imprimirNaTela("valor invalido", "Erro 100");
                                 validade=false;
                                  
                             }

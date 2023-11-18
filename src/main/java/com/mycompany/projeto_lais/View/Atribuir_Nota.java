@@ -6,7 +6,16 @@ package com.mycompany.projeto_lais.View;
 
 import com.mycompany.projeto_lais.Controller.Atribuir_Nota_Controller;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -52,7 +61,7 @@ public class Atribuir_Nota extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Salvar");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -81,14 +90,14 @@ public class Atribuir_Nota extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Aluno(a)", "Unidade 1", "Unidade 2", "Unidade3", "Recuperação", "MD", "MD Final"
+                "#", "Aluno(a)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -112,12 +121,6 @@ public class Atribuir_Nota extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setMinWidth(80);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(250);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(150);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(180);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(150);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(180);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(150);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(180);
         }
 
         jLabel0.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -180,13 +183,13 @@ public class Atribuir_Nota extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1404, Short.MAX_VALUE))
+                .addContainerGap(1408, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1530, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1534, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -213,12 +216,116 @@ public class Atribuir_Nota extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getjButton3() {
+        return jButton3;
+    }
+
+    public void setjButton3(JButton jButton3) {
+        this.jButton3 = jButton3;
+    }
+
+    public JComboBox<String> getjComboBox2() {
+        return jComboBox2;
+    }
+
+    public void setjComboBox2(JComboBox<String> jComboBox2) {
+        this.jComboBox2 = jComboBox2;
+    }
+
+    public JLabel getjLabel0() {
+        return jLabel0;
+    }
+
+    public void setjLabel0(JLabel jLabel0) {
+        this.jLabel0 = jLabel0;
+    }
+
+    public JMenu getjMenu1() {
+        return jMenu1;
+    }
+
+    public void setjMenu1(JMenu jMenu1) {
+        this.jMenu1 = jMenu1;
+    }
+
+    public JMenu getjMenu2() {
+        return jMenu2;
+    }
+
+    public void setjMenu2(JMenu jMenu2) {
+        this.jMenu2 = jMenu2;
+    }
+
+    public JMenu getjMenu3() {
+        return jMenu3;
+    }
+
+    public void setjMenu3(JMenu jMenu3) {
+        this.jMenu3 = jMenu3;
+    }
+
+    public JMenuBar getjMenuBar1() {
+        return jMenuBar1;
+    }
+
+    public void setjMenuBar1(JMenuBar jMenuBar1) {
+        this.jMenuBar1 = jMenuBar1;
+    }
+
+    public JMenuItem getjMenuItem1() {
+        return jMenuItem1;
+    }
+
+    public void setjMenuItem1(JMenuItem jMenuItem1) {
+        this.jMenuItem1 = jMenuItem1;
+    }
+
+    public JMenuItem getjMenuItem2() {
+        return jMenuItem2;
+    }
+
+    public void setjMenuItem2(JMenuItem jMenuItem2) {
+        this.jMenuItem2 = jMenuItem2;
+    }
+
+    public JMenuItem getjMenuItem9() {
+        return jMenuItem9;
+    }
+
+    public void setjMenuItem9(JMenuItem jMenuItem9) {
+        this.jMenuItem9 = jMenuItem9;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public void setjPanel1(JPanel jPanel1) {
+        this.jPanel1 = jPanel1;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JTable getjTable1() {
+        return jTable1;
+    }
+
+    public void setjTable1(JTable jTable1) {
+        this.jTable1 = jTable1;
+    }
+
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         //c.duploClick();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //c.salvar();
+        c.salvar();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -292,9 +399,8 @@ public void iniciar(Turma_Materia_Model turmamateria){
     c.iniciar();
 }
 
- public void imprimir_Na_Tela(String message) {
-       JOptionPane.showMessageDialog(null, message);
-    
+ public void imprimirNaTela(String message, String title){
+    JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
 }
 
 }

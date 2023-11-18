@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
 /**
  *
@@ -20,10 +21,8 @@ public class Aluno_Atividade_Model {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
      private int id;
-    private float nota1;
-    private float nota2;
-    private float nota3;
-    private float recu;
+    @ColumnDefault("0.0")
+    private float valor_recebido;
     private Aluno_Model aluno;
     private Atividade_Model atividade;
 
@@ -35,36 +34,12 @@ public class Aluno_Atividade_Model {
         this.id = id;
     }
 
-    public float getNota1() {
-        return nota1;
+    public float getValor_recebido() {
+        return valor_recebido;
     }
 
-    public void setNota1(float nota1) {
-        this.nota1 = nota1;
-    }
-
-    public float getNota2() {
-        return nota2;
-    }
-
-    public void setNota2(float nota2) {
-        this.nota2 = nota2;
-    }
-
-    public float getNota3() {
-        return nota3;
-    }
-
-    public void setNota3(float nota3) {
-        this.nota3 = nota3;
-    }
-
-    public float getRecu() {
-        return recu;
-    }
-
-    public void setRecu(float recu) {
-        this.recu = recu;
+    public void setValor_recebido(float valor_recebido) {
+        this.valor_recebido = valor_recebido;
     }
 
     public Aluno_Model getAluno() {
@@ -82,6 +57,8 @@ public class Aluno_Atividade_Model {
     public void setAtividade(Atividade_Model atividade) {
         this.atividade = atividade;
     }
+
+    
     
     
    

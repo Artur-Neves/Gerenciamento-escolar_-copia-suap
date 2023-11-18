@@ -7,6 +7,7 @@ import com.mycompany.projeto_lais.Enums.Situacao_Enum;
 import com.mycompany.projeto_lais.Model.Aluno_Model;
 import com.mycompany.projeto_lais.Model.Atividade_Model;
 import com.mycompany.projeto_lais.Model.Aula_Model;
+import com.mycompany.projeto_lais.Model.Dao.Aluno_Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
 import com.mycompany.projeto_lais.Model.Dao.Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aula_dao;
@@ -36,6 +37,7 @@ public class Cadastro_Aluno_Controller {
     private Turma_Materia_dao dao_tm;
     private Materia_dao dao_materia;
     private Materia_Model materia;
+    private Aluno_Atividade_dao dao_aluno_atividade;
 
     public Cadastro_Aluno_Controller(Cadastro_Aluno view, Turma_Materia_Model turmamateria, Aluno_Model aluno) {
         this.view = view;

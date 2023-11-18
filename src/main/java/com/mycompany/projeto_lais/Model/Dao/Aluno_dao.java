@@ -36,7 +36,7 @@ public class Aluno_dao {
     }
 
     public List<Aluno_Model> findByTurma(Turma_Model turma) {
-        String query = "select a from aluno a where a.turma= :turma";
+        String query = "select a from aluno a where a.turma= :turma order by a.nome";
         List<Aluno_Model> a = new ArrayList<Aluno_Model>();
         try {
             em = new Entity_Manager().ent();
