@@ -27,14 +27,8 @@ public class Aluno_Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAluno;
     private String nome;
-    @ColumnDefault("0")
-    private int nPresenca;
     @ColumnDefault("Cursando")
     private String situacao;
-    @ColumnDefault("0")
-    private int nFaltas;
-    @Formula(value ="nFaltas-nPresenca")
-    private int frequencia;
     @ManyToOne
     private Turma_Model turma;
      @ManyToMany(mappedBy="aluno")
@@ -47,21 +41,13 @@ public class Aluno_Model {
         this.turma = turma;
     }
 
-    public Aluno_Model(int idAluno, String nome, int nPresenca, String situacao, int nFaltas, int frequencia, Turma_Model turma) {
+    public Aluno_Model(int idAluno, String nome,  String situacao, Turma_Model turma) {
         this.idAluno = idAluno;
         this.nome = nome;
-        this.nPresenca = nPresenca;
         this.situacao = situacao;
-        this.nFaltas = nFaltas;
-        this.frequencia = frequencia;
         this.turma = turma;
     }
-    public Aluno_Model( String nome, String situacao, int nFaltas, Turma_Model turma) {
-        this.nome = nome;
-        this.situacao = situacao;
-        this.nFaltas = nFaltas;
-        this.turma=turma;
-    }
+    
     
     public Aluno_Model(String nome) {
         this.nome = nome;
@@ -88,13 +74,6 @@ public class Aluno_Model {
         this.nome = nome;
     }
 
-    public int getnPresenca() {
-        return nPresenca;
-    }
-
-    public void setnPresenca(int nPresenca) {
-        this.nPresenca = nPresenca;
-    }
 
     public String getSituacao() {
         return situacao;
@@ -104,21 +83,7 @@ public class Aluno_Model {
         this.situacao = situacao;
     }
 
-    public int getnFaltas() {
-        return nFaltas;
-    }
-
-    public void setnFaltas(int nFaltas) {
-        this.nFaltas = nFaltas;
-    }
-
-    public int getFrequencia() {
-        return frequencia;
-    }
-
-    public void setFrequencia(int frequencia) {
-        this.frequencia = frequencia;
-    }
+   
 
     public Turma_Model getTurma() {
         return turma;

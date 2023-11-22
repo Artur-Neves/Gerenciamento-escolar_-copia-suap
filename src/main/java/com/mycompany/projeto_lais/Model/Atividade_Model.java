@@ -33,6 +33,8 @@ public class Atividade_Model {
     private Date data;
     @Column(length=Length.LONG)
     private String descricao;
+    // tem que mudar as laranjadas aqui 
+    private int divisor;
 
     private String unidade;
     
@@ -42,20 +44,22 @@ public class Atividade_Model {
     public Atividade_Model() {
     }
 
-    public Atividade_Model(int id, String metodo, Double notaMaxima, Date dataDeAnexo) {
+    public Atividade_Model(int id, String metodo, Double notaMaxima, Date dataDeAnexo, int divisor) {
         this.id = id;
         this.Calculo = Calculo;
         this.valor = notaMaxima;
         this.data = dataDeAnexo;
+        this.divisor = divisor;
     }
 
-    public Atividade_Model(String formato, Double valor, Date data, String Descricao, String unidade, Turma_Materia_Model turmamateria) {
+    public Atividade_Model(String formato, Double valor, Date data, String Descricao, String unidade, Turma_Materia_Model turmamateria, int divisor) {
         this.Calculo = formato;
         this.valor = valor;
         this.data = data;
         this.descricao = Descricao;
         this.unidade = unidade;
         this.turmamateria = turmamateria;
+        this.divisor = divisor;
     }
 
     
@@ -68,6 +72,16 @@ public class Atividade_Model {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getDivisor() {
+        return divisor;
+    }
+
+    public void setDivisor(int divisor) {
+        this.divisor = divisor;
+    }
+    
+    
 
     public String getCalculo() {
         return Calculo;

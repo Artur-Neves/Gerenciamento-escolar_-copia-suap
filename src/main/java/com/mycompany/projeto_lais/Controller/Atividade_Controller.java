@@ -86,18 +86,21 @@ public class Atividade_Controller {
         atualizar();
     }
 
-    public void editar(int selectedRow) {
-        Atividade_Model atividade1 = atividades.get(selectedRow);
+    public void editar() {
+        if(view.getjTable1().getSelectedRow()!=-1){
+        Atividade_Model atividade1 = atividades.get(view.getjTable1().getSelectedRow());
+            System.out.println(view.getjTable1().getSelectedRow());
          Cadastro_Atividade atividade = new Cadastro_Atividade(null, true, atividade1 ,  turmamateria, "");
         atividade.setVisible(true);
-        atualizar();
+        atualizar();}
     }
 
-    public void excluir(int selectedRow) {
-        Atividade_Model atividade1 = atividades.get(selectedRow);
+    public void excluir() {
+         if(view.getjTable1().getSelectedRow()!=-1){
+        Atividade_Model atividade1 = atividades.get(view.getjTable1().getSelectedRow());
          Cadastro_Atividade atividade = new Cadastro_Atividade(null, true,atividade1 ,  turmamateria, 0);
         atividade.setVisible(true);
-        atualizar();
+        atualizar();}
     }
 
     public void atualizar() {
@@ -110,6 +113,7 @@ public class Atividade_Controller {
  String[] dados = new String [5];
  String unidade = ""+view.getjComboBox1().getSelectedItem();
  List<Atividade_Model> lista= dao.findByTurmaMateria(turmamateria, unidade);
+ atividades.clear();
  if (lista!=null){
         for (Atividade_Model  atividade : lista) {
             dados[0] = atividade.getDescricao();

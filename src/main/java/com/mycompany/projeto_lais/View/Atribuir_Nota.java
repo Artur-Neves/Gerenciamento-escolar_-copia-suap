@@ -341,7 +341,7 @@ public class Atribuir_Nota extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
+        c.atualizar(); 
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**

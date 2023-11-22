@@ -19,6 +19,7 @@ import com.mycompany.projeto_lais.View.Aluno;
 import com.mycompany.projeto_lais.View.Atividade;
 import com.mycompany.projeto_lais.View.Atribuir_Nota;
 import com.mycompany.projeto_lais.View.Aula;
+import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +92,11 @@ public class Atribuir_Nota_Controller {
                     
                     if (a!=b){
                         System.out.println("Aluno: "+ alunol.getNome()+ alunol.getIdAluno()+"  atividade "+atividadec.getDescricao()+atividadec.getId());
-                        Aluno_Atividade_Model at = dao.findByAlunoAtividade(alunol, atividadec);
+                        
+                        if (a<=atividadec.getValor()){
+                            Aluno_Atividade_Model at = dao.findByAlunoAtividade(alunol, atividadec);
                         at.setValor_recebido(a);
+                        
                         if (dao.update(at)){
                             System.out.println("linha: "+depois.get(i).linha);
                             System.out.println("coluna: "+depois.get(i).coluna);
@@ -102,7 +106,13 @@ public class Atribuir_Nota_Controller {
                             Toolkit.getDefaultToolkit().beep();
                                 view.imprimirNaTela("valor invalido", "Erro 100");
                                 validacao=false;
-                    }
+                    }}
+                        else{
+                            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(view, validacao, "O valor máximo da atividade "+atividadec.getDescricao(), "é "+atividadec.getValor(), "Atenção");
+                            m.setVisible(true);
+                            validacao=false;
+                            break;
+                        }
                 
                 }
                 

@@ -73,4 +73,24 @@ public Aluno_Atividade_Model findByAlunoAtividade(Aluno_Model aluno, Atividade_M
             em.close();
         }
     }
+
+    public List<Aluno_Atividade_Model> findByAlunoUnidade(Aluno_Model aluno, String unidade) {
+         String query = "select a from atividade_aluno a where a.aluno = :aluno and a.atividade.unidade = :unidade order by a.atividade.data desc";
+    List<Aluno_Atividade_Model> aluno_atividade = new ArrayList<>();
+    try {
+        em = new Entity_Manager().ent();
+        em.getTransaction().begin();
+        aluno_atividade =  em.createQuery(query).setParameter("aluno", aluno).setParameter("unidade", unidade).getResultList();
+        em.getTransaction().commit();
+    } catch (Exception e) {
+        System.out.println("findByAlunoAtividade Aluno_Atividade_dao" + e);
+        em.getTransaction().rollback();
+        aluno_atividade = null;
+    }
+    finally{
+        em.close();
+        return aluno_atividade;
+    }
+    }
+     
 }

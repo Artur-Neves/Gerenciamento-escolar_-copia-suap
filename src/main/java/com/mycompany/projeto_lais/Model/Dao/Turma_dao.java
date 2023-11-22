@@ -125,7 +125,7 @@ public class Turma_dao {
         em.getTransaction().commit();
         return true;
         } catch (Exception e) {
-            System.err.println("insert "+e);
+            System.err.println("delete "+e);
             em.getTransaction().rollback();
            return false;
         }

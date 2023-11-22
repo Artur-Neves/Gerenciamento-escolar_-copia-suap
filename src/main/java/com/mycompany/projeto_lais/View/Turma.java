@@ -279,7 +279,7 @@ Turma_Controller c;
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem3.setText("Excluir");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,23 +306,23 @@ Turma_Controller c;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        c.cadastroOUEntrar(text1.getText());
+        c.cadastroOUEntrar(0);
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-          c.cadastroOUEntrar(text4.getText());
+          c.cadastroOUEntrar(3);
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-         c.cadastroOUEntrar(text2.getText());
+         c.cadastroOUEntrar(1);
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-         c.cadastroOUEntrar(text9.getText());
+         c.cadastroOUEntrar(8);
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-         c.cadastroOUEntrar(text7.getText());
+         c.cadastroOUEntrar(6);
     }//GEN-LAST:event_btn7ActionPerformed
 
     private void btn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12ActionPerformed
@@ -334,19 +334,19 @@ Turma_Controller c;
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-      c.cadastroOUEntrar(text3.getText());
+      c.cadastroOUEntrar(2);
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
- c.cadastroOUEntrar(text8.getText());        
+ c.cadastroOUEntrar(7);        
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-         c.cadastroOUEntrar(text6.getText());
+         c.cadastroOUEntrar(5);
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-         c.cadastroOUEntrar(text5.getText());
+         c.cadastroOUEntrar(4);
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

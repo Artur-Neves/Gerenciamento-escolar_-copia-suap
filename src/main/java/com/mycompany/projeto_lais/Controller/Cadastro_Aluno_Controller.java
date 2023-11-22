@@ -71,9 +71,8 @@ public class Cadastro_Aluno_Controller {
             if (!view.getjTextField1().getText().trim().isEmpty()) {
                 String nome = view.getjTextField1().getText();
                 turma = dao_turma.findByName("" + view.getjComboBox1().getSelectedItem());
-                int faltas = Integer.parseInt(view.getjSpinner1().getValue().toString());
-                String situacao = ""+view.getjComboBox2().getSelectedItem();
-                model = new Aluno_Model(nome, situacao, faltas, turma);
+                
+                model = new Aluno_Model(nome, turma);
                 turma.getAlunos().add(model);
                 
                 if (dao.inserir(model)) {
@@ -96,8 +95,6 @@ public class Cadastro_Aluno_Controller {
         } else if (view.getjButton3().getText().equals("Editar")) {
             aluno.setNome(view.getjTextField1().getText());
             turma = dao_turma.findByName("" + view.getjComboBox1().getSelectedItem());
-            aluno.setnFaltas( Integer.parseInt(view.getjSpinner1().getValue().toString()));
-            aluno.setSituacao(""+view.getjComboBox2().getSelectedItem());
             aluno.setTurma(turma);
             if (dao.editar(aluno)){
                  view.imprimir_Na_Tela("Aluno editado com sucesso!");
@@ -124,15 +121,10 @@ public class Cadastro_Aluno_Controller {
         for (Turma_Model t : dao_turma.selectAll()) {
             view.getjComboBox1().addItem(t.getNome());
         }
-        for (Situacao_Enum e : Situacao_Enum.values()) {
-            view.getjComboBox2().addItem(e.toString());
-        }
-
+      
         view.getjComboBox1().setSelectedItem(turma.getNome());
         if (!view.getjButton3().getText().equals("Salvar")) {
             view.getjTextField1().setText(aluno.getNome());
-            view.getjSpinner1().setValue(aluno.getnFaltas());
-            view.getjComboBox2().setSelectedItem(aluno.getSituacao());
             view.getjComboBox1().setSelectedItem(dao_turma.findbyId(aluno.getTurma().getIdTurma()));
 
         }

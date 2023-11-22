@@ -4,8 +4,9 @@
  */
 package com.mycompany.projeto_lais.Controller;
 
-import com.mycompany.projeto_lais.Enums.Unidade_Enum;
+import com.mycompany.projeto_lais.Model.Aluno_Atividade_Model;
 import com.mycompany.projeto_lais.Model.Aluno_Model;
+import com.mycompany.projeto_lais.Model.Dao.Aluno_Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
 import com.mycompany.projeto_lais.Model.Dao.Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_Materia_dao;
@@ -19,6 +20,8 @@ import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Cadastro_Aluno;
 import com.mycompany.projeto_lais.View.Materia;
 import com.mycompany.projeto_lais.View.Turma;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,30 +31,38 @@ import javax.swing.table.DefaultTableModel;
 public class Aluno_Controller {
 
     private Aluno view;
-    private Aluno_dao dao = new Aluno_dao();
-    private Turma_Model turma = null;
+    private Aluno_dao dao ;
+    private Turma_Model turma;
     private Aluno_Model model;
-    private Turma_dao dao_turma = new Turma_dao();
-    private Materia_dao dao_materia = new Materia_dao();
+    private Turma_dao dao_turma;
+    private Materia_dao dao_materia;
+    private Aluno_Atividade_dao dao_at;
     private Materia_Model materia;
-    private Turma_Materia_dao dao_tm = new Turma_Materia_dao();
+    private Turma_Materia_dao dao_tm;
     private Turma_Materia_Model turmamateria;
     private DefaultTableModel dm;
+    private List<Aluno_Atividade_Model> lista_At;
 
     public Aluno_Controller(Aluno view, Turma_Model turma, Materia_Model materia) {
+           dao = new Aluno_dao();
+        dao_turma = new Turma_dao();
+        dao_materia = new Materia_dao();
+        dao_at = new Aluno_Atividade_dao();
+        dao_tm = new Turma_Materia_dao();
+        lista_At = new ArrayList<>();
         this.view = view;
         this.turma = turma;
         this.materia = materia;
-        this.turmamateria = new Turma_Materia_Model(dao_turma.findByName(turma.getNome()), dao_materia.findByName(materia.getNome()));
+        this.turmamateria = new Turma_Materia_Model(turma, dao_materia.findByName(materia.getNome()));
         this. turmamateria = dao_tm.findbyturmamateria(turmamateria);
          dm = (DefaultTableModel) view.getjTable1().getModel(); 
          System.out.println("vai por favor");
+        
     }
 
     
     public void iniciar() {
         view.setExtendedState(Materia.MAXIMIZED_BOTH);
-        
         atualizar();
         
     }
@@ -69,13 +80,16 @@ public class Aluno_Controller {
         String[] dados = new String[9];
         for (Aluno_Model a : dao.findByTurma(turma)) {
             dados[0] = a.getNome();
-            dados[1] = "" + a.getnFaltas();
-            dados[2] = "" + a.getFrequencia();
             dados[3] = a.getSituacao();
-            dados[4] = "0";
-            dados[5] = "0";
-            dados[6] = "0";
+            // nota 1
+            dados[4] = ""+soma_Das_Notas(a, "Unidade 1");
+            // nota 2
+            dados[5] = ""+soma_Das_Notas(a, "Unidade 2");
+            // nota 3
+            dados[6] = ""+soma_Das_Notas(a, "Unidade 3");
+            // recuperação
             dados[7] = "0";
+            // media
             dados[8] = "0";
             dm.addRow(dados);
         }
@@ -152,9 +166,6 @@ public class Aluno_Controller {
         String[] dados = new String[10];
         for (Aluno_Model a : dao.find(turma, coluna, texto)) {
             dados[0] = a.getNome();
-            dados[1] = "" + a.getnPresenca();
-            dados[2] = "" + a.getnFaltas();
-            dados[3] = "" + a.getFrequencia();
             dados[4] = "" + a.getSituacao();
             dados[5] = "0";
             dados[6] = "0";
@@ -180,6 +191,21 @@ public class Aluno_Controller {
            Atividade atividade = new Atividade(turmamateria);
        atividade.setVisible(true);
        view.hide();   
+    }
+    public double soma_Das_Notas(Aluno_Model aluno, String unidade){
+       lista_At = dao_at.findByAlunoUnidade(aluno, unidade); 
+       double valor =0;
+        for (Aluno_Atividade_Model at: lista_At){
+             switch (lista_At.get(0).getAtividade().getCalculo()) {
+            case "Soma simples":
+                valor = valor+at.getValor_recebido();
+                System.out.println("ta caindo aqui");
+                break;
+            default:
+                break;
+        }
+        }
+        return valor;
     }
 
 }

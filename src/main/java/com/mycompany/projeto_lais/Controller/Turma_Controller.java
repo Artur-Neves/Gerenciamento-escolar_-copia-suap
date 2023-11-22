@@ -109,14 +109,14 @@ public class Turma_Controller {
         }
     }
 
-    public void cadastroOUEntrar(String b) {
+    public void cadastroOUEntrar(int b) {
        botoesAtivos();
-       if (dao.findByName(b)== null){
+       if (list.size()<b+1){
  Cadastro_Turma c = new Cadastro_Turma(null, true, materia);
  c.setVisible(true);
        }
        else {
-       Aluno t = new Aluno(dao.findByName(b), materia);
+       Aluno t = new Aluno(list.get(b), materia);
             t.setVisible(true);
             view.hide();
        }
