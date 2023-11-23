@@ -6,6 +6,7 @@ package com.mycompany.projeto_lais.View;
 
 import com.mycompany.projeto_lais.Controller.Atribuir_Nota_Controller;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -32,6 +33,12 @@ public class Atribuir_Nota extends javax.swing.JFrame {
         
     }
 
+    public Atribuir_Nota(Turma_Materia_Model turmamateria, String recuperacao) {
+        initComponents();
+        iniciar_recuperacao(turmamateria);
+        
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,6 +54,8 @@ public class Atribuir_Nota extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel0 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -135,6 +144,11 @@ public class Atribuir_Nota extends javax.swing.JFrame {
             }
         });
 
+        jDateChooser1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel1.setText("Data da aplicação");
+
         jMenu1.setText("Operações");
 
         jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -180,10 +194,14 @@ public class Atribuir_Nota extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1408, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1196, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -198,8 +216,13 @@ public class Atribuir_Nota extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(588, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -219,6 +242,31 @@ public class Atribuir_Nota extends javax.swing.JFrame {
     public JButton getjButton3() {
         return jButton3;
     }
+
+    public Atribuir_Nota_Controller getC() {
+        return c;
+    }
+
+    public void setC(Atribuir_Nota_Controller c) {
+        this.c = c;
+    }
+
+    public JDateChooser getjDateChooser1() {
+        return jDateChooser1;
+    }
+
+    public void setjDateChooser1(JDateChooser jDateChooser1) {
+        this.jDateChooser1 = jDateChooser1;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public void setjLabel1(JLabel jLabel1) {
+        this.jLabel1 = jLabel1;
+    }
+    
 
     public void setjButton3(JButton jButton3) {
         this.jButton3 = jButton3;
@@ -382,7 +430,9 @@ public class Atribuir_Nota extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel0;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -397,6 +447,14 @@ public class Atribuir_Nota extends javax.swing.JFrame {
 public void iniciar(Turma_Materia_Model turmamateria){
  c = new Atribuir_Nota_Controller(this, turmamateria);
     c.iniciar();
+ jLabel1.setVisible(false);
+ jDateChooser1.setVisible(false);
+}
+public void iniciar_recuperacao(Turma_Materia_Model turmamateria){
+    c = new Atribuir_Nota_Controller(this, turmamateria);
+    jLabel0.setText("Recuperação");
+    jComboBox2.setVisible(false);
+    c.iniciar_Recuperacao();
 }
 
  public void imprimirNaTela(String message, String title){

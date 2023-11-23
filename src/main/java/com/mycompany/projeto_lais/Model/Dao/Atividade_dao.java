@@ -67,13 +67,14 @@ public class Atividade_dao {
     }
     public List<Atividade_Model> findByTurmaMateria( Turma_Materia_Model turmamateria, String unidade){
            List<Atividade_Model> atividader= null;
+           String recu = "Recuperação";
            String query=null;
            try {
             em = new Entity_Manager().ent();
             em.getTransaction().begin();
            if (unidade.equals("")){
-                query = "select a from atividade a where a.turmamateria= :turma order by a.data desc";
-                atividader = em.createQuery(query).setParameter("turma", turmamateria).getResultList();          
+                query = "select a from atividade a where a.turmamateria= :turma and a.unidade <> :recu  order by a.data desc";
+                atividader = em.createQuery(query).setParameter("turma", turmamateria).setParameter("recu", recu).getResultList();          
            }else { 
                 query = "select a from atividade a where a.turmamateria= :turma and a.unidade = :unidade order by a.data desc";
                  atividader = em.createQuery(query).setParameter("turma", turmamateria).setParameter("unidade", unidade).getResultList();          
@@ -89,5 +90,26 @@ public class Atividade_dao {
             return atividader;
         }
     }
+
+    public List<Atividade_Model> findByTurmaMateriaRecovery(Turma_Materia_Model turmamateria, String recuperacao) {
+        List<Atividade_Model> atividader= null;
+           String query = "select a from atividade a where a.turmamateria= :turma and a.unidade = :recuperacao order by a.data desc";
+           try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+           atividader= em.createQuery(query).setParameter("turma", turmamateria).setParameter("recuperacao", recuperacao).getResultList();          
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.out.println(" findByTurmaMateriaRecovery Atividade"+e);
+            
+        } finally {
+               
+            em.close();
+            return atividader;
+        }
+    }
+   
+    
    
 }

@@ -89,7 +89,8 @@ public class Atividade_Controller {
     public void editar() {
         if(view.getjTable1().getSelectedRow()!=-1){
         Atividade_Model atividade1 = atividades.get(view.getjTable1().getSelectedRow());
-            System.out.println(view.getjTable1().getSelectedRow());
+        
+            
          Cadastro_Atividade atividade = new Cadastro_Atividade(null, true, atividade1 ,  turmamateria, "");
         atividade.setVisible(true);
         atualizar();}
@@ -129,6 +130,12 @@ view.getjTable1().setModel(dm);
 
     public void atribuirNota() {
         Atribuir_Nota n = new Atribuir_Nota(turmamateria);
+        n.setVisible(true);
+        view.hide();
+    }
+
+    public void entrarRecuperacao() {
+        Atribuir_Nota n = new Atribuir_Nota(turmamateria, "");
         n.setVisible(true);
         view.hide();
     }

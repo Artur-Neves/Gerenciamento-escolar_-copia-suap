@@ -35,6 +35,7 @@ public class Atividade_Model {
     private String descricao;
     // tem que mudar as laranjadas aqui 
     private int divisor;
+    private double peso;
 
     private String unidade;
     
@@ -44,14 +45,25 @@ public class Atividade_Model {
     public Atividade_Model() {
     }
 
-    public Atividade_Model(int id, String metodo, Double notaMaxima, Date dataDeAnexo, int divisor) {
+    public Atividade_Model(int id, String metodo, Double notaMaxima, Date dataDeAnexo, int divisor, double peso) {
         this.id = id;
         this.Calculo = Calculo;
         this.valor = notaMaxima;
         this.data = dataDeAnexo;
         this.divisor = divisor;
+        this.peso = peso;
     }
 
+    public Atividade_Model(String formato, Double valor, Date data, String Descricao, String unidade, Turma_Materia_Model turmamateria, int divisor, double peso) {
+        this.Calculo = formato;
+        this.valor = valor;
+        this.data = data;
+        this.descricao = Descricao;
+        this.unidade = unidade;
+        this.turmamateria = turmamateria;
+        this.divisor = divisor;
+        this.peso = peso;
+    }
     public Atividade_Model(String formato, Double valor, Date data, String Descricao, String unidade, Turma_Materia_Model turmamateria, int divisor) {
         this.Calculo = formato;
         this.valor = valor;
@@ -60,6 +72,7 @@ public class Atividade_Model {
         this.unidade = unidade;
         this.turmamateria = turmamateria;
         this.divisor = divisor;
+    
     }
 
     
@@ -134,6 +147,15 @@ public class Atividade_Model {
     public Turma_Materia_Model getTurmamateria() {
         return turmamateria;
     }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+    
 
     public void setTurmamateria(Turma_Materia_Model turmamateria) {
         this.turmamateria = turmamateria;

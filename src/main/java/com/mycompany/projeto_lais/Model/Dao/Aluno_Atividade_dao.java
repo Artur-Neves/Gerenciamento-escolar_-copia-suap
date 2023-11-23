@@ -20,7 +20,7 @@ public class Aluno_Atividade_dao {
 EntityManager em;
 
 public List<Aluno_Atividade_Model> findByTurmaMateria(Turma_Materia_Model turmamateria){
-    String query = "select a from atividade_aluno a where a.atividade.turmamateria = :turmamateria order by a.atividade.data desc";
+    String query = "select a from atividade_aluno a where a.atividade.turmamateria = :turmamateria and a.atividade.unidade != 'Recuperação' order by a.atividade.data desc";
     List<Aluno_Atividade_Model> aluno_atividade = new ArrayList<>();
     try {
         em = new Entity_Manager().ent();
@@ -84,6 +84,42 @@ public Aluno_Atividade_Model findByAlunoAtividade(Aluno_Model aluno, Atividade_M
         em.getTransaction().commit();
     } catch (Exception e) {
         System.out.println("findByAlunoAtividade Aluno_Atividade_dao" + e);
+        em.getTransaction().rollback();
+        aluno_atividade = null;
+    }
+    finally{
+        em.close();
+        return aluno_atividade;
+    }
+    }
+    
+    public void ExcluirNotasAtividade(Atividade_Model atividade){
+        
+        String query ="update atividade_aluno a  set a.valor_recebido= 0 where a.atividade= :atividade and a.atividade.unidade != 'Recuperação'";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+           
+            em.createQuery(query).setParameter("atividade", atividade).executeUpdate();
+             em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.out.println("ExluirNOtasAtividade "+e.getMessage());
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Aluno_Atividade_Model> findByTurmaMateriaUnidade(Turma_Materia_Model turmamateria, String unidade) {
+        String query = "select a from atividade_aluno a where a.atividade.unidade = :unidade order by a.atividade.data desc";
+    List<Aluno_Atividade_Model> aluno_atividade = new ArrayList<>();
+    try {
+        em = new Entity_Manager().ent();
+        em.getTransaction().begin();
+        aluno_atividade =  em.createQuery(query).setParameter("unidade", unidade).getResultList();
+        em.getTransaction().commit();
+    } catch (Exception e) {
+        System.out.println("findByTurmaMateriaUnidadeu" + e.getMessage());
         em.getTransaction().rollback();
         aluno_atividade = null;
     }

@@ -22,6 +22,7 @@ import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,6 +50,10 @@ public class Atribuir_Nota_Controller {
     private ArrayList<Atribuir_Nota_Controller.Localizacao> antes;
     private ArrayList<Atribuir_Nota_Controller.Localizacao> depois;
     private Atribuir_Nota_Controller.Localizacao localizacao;
+    private double nota2;
+    private double nota3;
+    private double nota1;
+    
 
     public Atribuir_Nota_Controller(Atribuir_Nota view, Turma_Materia_Model turmamateria) {
         this.view = view;
@@ -60,6 +65,9 @@ public class Atribuir_Nota_Controller {
         this.turmamateria = turmamateria;
         listAluno_Atividade =  dao.findByTurmaMateria(turmamateria);
         dm = new DefaultTableModel();
+        nota2=0;
+        nota3=0;
+        nota1=0;
     }
     public void iniciar(){
         view.setExtendedState(Atribuir_Nota.MAXIMIZED_BOTH);
@@ -128,7 +136,18 @@ public class Atribuir_Nota_Controller {
               }
             } if (validacao){
                 view.imprimirNaTela("Notas regitradas com sucesso!", "Sucess");
+                if (view.getjLabel0().getText().equals("Recuperação")){
+                    if (view.getjDateChooser1().getDate()!=null){
+                    Date data = view.getjDateChooser1().getDate();
+                    listAtividade.get(0).setData(data);
+                    dao_atvd.update(listAtividade.get(0));
+                    }
+                    
+                    atualizar_Recuperacao();
+                }
+                else{
                 atualizar();
+                }
             }
         }
     }
@@ -141,8 +160,8 @@ public class Atribuir_Nota_Controller {
          listAtividade = dao_atvd.findByTurmaMateria(turmamateria, unidade);
          
          
-         String[] dados = new String [10];
-         String[] coluna = new String [10];
+         String[] dados = new String [100];
+         String[] coluna = new String [100];
          
          if (listAluno_Atividade!=null){
              int i = 0;
@@ -213,6 +232,83 @@ public class Atribuir_Nota_Controller {
         view.hide();
     } 
 
+    public void iniciar_Recuperacao() {
+        view.setExtendedState(Atribuir_Nota.MAXIMIZED_BOTH);
+        atualizar_Recuperacao();
+    }
+
+    private void atualizar_Recuperacao() {
+        dm = new DefaultTableModel();
+        double media;
+        List<Aluno_Model> improviso= new ArrayList<>();
+         String unidade = "Recuperacao";
+         listAluno = dao_aluno.findByTurma(turmamateria.getTurma());
+         listAtividade = dao_atvd.findByTurmaMateriaRecovery(turmamateria, "Recuperação");
+        
+         for (Aluno_Model a : listAluno){
+         nota1 = soma_Das_Notas(a, "Unidade 1");
+            nota2 = soma_Das_Notas(a, "Unidade 2");
+            nota3 = soma_Das_Notas(a, "Unidade 3");
+            media = (nota1+nota2+nota3)/3;
+             
+                if (media<5){
+                improviso.add(a);
+                
+                }}
+         listAluno = improviso;
+         if (listAtividade.size()==0){
+             Atividade_Model recu =  new Atividade_Model();
+             for (Aluno_Model a : listAluno){
+                recu.addAluno( a);
+             }
+             recu.setCalculo("Soma simples");
+             recu.setDescricao("Recuperação");
+             recu.setDivisor(1);
+             recu.setPeso(0);
+             recu.setTurmamateria(turmamateria);
+             recu.setUnidade("Recuperação");
+             recu.setValor(10.0);
+             if(dao_atvd.insert(recu)){
+              listAtividade = dao_atvd.findByTurmaMateriaRecovery(turmamateria, "Recuperação");
+                     }
+             
+         }
+          view.getjDateChooser1().setDate(listAtividade.get(0).getData());
+          listAluno_Atividade = dao.findByTurmaMateriaUnidade(turmamateria, "Recuperação");
+        
+         
+         
+         String[] dados = new String [10];
+         String[] coluna = new String [10];
+         
+         if (listAluno_Atividade!=null){
+             int i = 0;
+             int numero=0;
+             dm.addColumn("#");
+             dm.addColumn("Aluno (a)");
+             dm.addColumn("Nota da Recuperação");
+            
+             
+             for (Aluno_Model a : listAluno){
+           
+                 i++;
+                 numero=0;
+             dados [0] = ""+i;
+             dados [1] = a.getNome();
+             
+             for (int b = 0; b < listAluno_Atividade.size(); b++){
+                // ele ta mostrando a posição errada
+                 if(listAluno_Atividade.get(b).getAluno().getIdAluno()== a.getIdAluno()){
+                // float media = (list.getNota1()+list.getNota2()+list.getNota3())/3;
+             dados [numero+2] = ""+listAluno_Atividade.get(b).getValor_recebido();
+              System.out.println("atividade recebida " +listAluno_Atividade.get(b).getAtividade().getDescricao()+"posição "+(numero+2));
+                 numero++;}}
+             dm.addRow(dados);
+                     }
+             view.getjTable1().setModel(dm);
+    }
+    antes = valorCelulas();}
+
      private static class Localizacao {
 private int coluna;
 private int linha;
@@ -230,8 +326,45 @@ private String valor;
      private static boolean isInteger(String str) {
         return str != null && str.matches("[0-9].*");
     }
-    
-    
-    
-    
+     public double soma_Das_Notas(Aluno_Model aluno, String unidade){
+       listAluno_Atividade = dao.findByAlunoUnidade(aluno, unidade); 
+       double valor =0;
+       double quantidade=0;
+       double valor_peso= 0;
+       double maior = -1;
+       if (listAluno_Atividade!=null){
+        for (Aluno_Atividade_Model at: listAluno_Atividade){
+             switch (listAluno_Atividade.get(0).getAtividade().getCalculo()) {
+            case "Soma simples":
+                valor = valor+at.getValor_recebido();
+                quantidade=1;
+                System.out.println("ta caindo aqui");
+                break;
+                 case "Média Aritmética":
+                  quantidade++;
+                  valor = valor+ at.getValor_recebido();
+                    break;
+                    case "Média Ponderada":
+                   quantidade=1;
+                   valor_peso= at.getAtividade().getPeso()*(at.getValor_recebido()/10);
+                   valor = valor+valor_peso;
+                    break;
+                    case "Soma com Divisor Informado":
+                    quantidade=at.getAtividade().getDivisor();
+                    valor = valor+at.getValor_recebido();
+                    
+                    break;
+                    case "Maior Nota":
+                        quantidade=1;
+                   if (at.getValor_recebido()>maior){
+                       maior = at.getValor_recebido();
+                   }
+                   valor = maior;
+            default:
+                break;
+        }
+        }}
+    return valor;
 }
+}
+

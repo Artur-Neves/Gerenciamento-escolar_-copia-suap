@@ -12,7 +12,8 @@ public enum Calculos_Enum {
     Soma_Simples ("Soma simples"),
     Media_Aritmetica ("Média Aritmética"),
     Media_Ponderada ("Média Ponderada"),
-    Soma_com_Divisor_Informado ("Soma com Divisor Informado");
+    Soma_com_Divisor_Informado ("Soma com Divisor Informado"),
+    Maior_Nota("Maior Nota");
     private String calculo;
 
     private Calculos_Enum(String calculo) {

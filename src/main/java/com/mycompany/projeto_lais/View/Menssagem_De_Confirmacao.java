@@ -259,7 +259,7 @@ private boolean confirmacao= false;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-public void Atencao(){
+public void atencao(){
     
 }
 public boolean retornar(){

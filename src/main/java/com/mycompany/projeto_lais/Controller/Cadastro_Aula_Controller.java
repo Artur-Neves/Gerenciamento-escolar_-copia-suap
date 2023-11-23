@@ -18,7 +18,10 @@ import com.mycompany.projeto_lais.Model.Frequencia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import com.mycompany.projeto_lais.View.Cadastro_Aula;
+import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -35,36 +38,45 @@ public class Cadastro_Aula_Controller {
     private Aluno_Model aluno;
     private Turma_Model turma;
     private Turma_Materia_dao dao_tm;
-    Frequencia_dao dao_f;
+    private Frequencia_dao dao_f;
     private Turma_Materia_Model turmamateria;
+    private boolean confirmacao;
+    private List<Frequencia_Model> lista_f;
+    private Menssagem_De_Confirmacao m;
+    private int quantidade_inicial;
 
     public Cadastro_Aula_Controller(Cadastro_Aula view, Turma_Materia_Model turmamateria) {
         this.view = view;
-                dao = new Aula_dao();
-                dao_aluno = new Aluno_dao();
-                dao_turma = new Turma_dao();
-                dao_materia = new Materia_dao();
-                dao_tm= new Turma_Materia_dao();
-                dao_f = new Frequencia_dao();
-        this.turmamateria= dao_tm.findbyturmamateria(turmamateria);
-      
+        dao = new Aula_dao();
+        dao_aluno = new Aluno_dao();
+        dao_turma = new Turma_dao();
+        dao_materia = new Materia_dao();
+        dao_tm = new Turma_Materia_dao();
+        dao_f = new Frequencia_dao();
+        lista_f = new ArrayList<>();
+        this.turmamateria = dao_tm.findbyturmamateria(turmamateria);
+
     }
-     public Cadastro_Aula_Controller(Cadastro_Aula view, Turma_Materia_Model turmamateria, Aula_Model aula) {
+
+    public Cadastro_Aula_Controller(Cadastro_Aula view, Turma_Materia_Model turmamateria, Aula_Model aula) {
         this.view = view;
-                dao = new Aula_dao();
-                dao_aluno = new Aluno_dao();
-                dao_turma = new Turma_dao();
-                dao_materia = new Materia_dao();
-                dao_tm= new Turma_Materia_dao();
-                this.model = aula;
-        this.turmamateria= dao_tm.findbyturmamateria(turmamateria);
-      
+        dao = new Aula_dao();
+        dao_aluno = new Aluno_dao();
+        dao_turma = new Turma_dao();
+        dao_materia = new Materia_dao();
+        dao_tm = new Turma_Materia_dao();
+        dao_f = new Frequencia_dao();
+        this.model = aula;
+        lista_f = new ArrayList<>();
+        quantidade_inicial =model.getQuantidade();
+        this.turmamateria = dao_tm.findbyturmamateria(turmamateria);
+
     }
 
     public void iniciar() {
         Date data = new Date();
         System.out.println(data);
-        if (view.getjButton3().getText().equals("Salvar")){
+        if (view.getjButton3().getText().equals("Salvar")) {
             view.getjDateChooser1().setDate(data);
         }
         for (Unidade_Enum value : Unidade_Enum.values()) {
@@ -73,65 +85,78 @@ public class Cadastro_Aula_Controller {
         for (Formato_Enum value : Formato_Enum.values()) {
             view.getjComboBox4().addItem(value.toString());
         }
-        if (!view.getjButton3().getText().equals("Salvar")){
-        view.getjComboBox3().setSelectedItem(model.getUnidade());
-        view.getjComboBox4().setSelectedItem(model.getFormato());
-        view.getjSpinner1().setValue(model.getQuantidade());
-        view.getjDateChooser1().setDate(model.getData());
-        view.getjTextArea1().setText(model.getObs());
-        view.getjTextArea2().setText(model.getConteudo());
+        if (!view.getjButton3().getText().equals("Salvar")) {
+            view.getjComboBox3().setSelectedItem(model.getUnidade());
+            view.getjComboBox4().setSelectedItem(model.getFormato());
+            view.getjSpinner1().setValue(model.getQuantidade());
+            view.getjDateChooser1().setDate(model.getData());
+            view.getjTextArea1().setText(model.getObs());
+            view.getjTextArea2().setText(model.getConteudo());
         }
-        
+
     }
-    public void inserir(){
-        String unidade= ""+view.getjComboBox3().getSelectedItem();
-            int quantidade= (int) view.getjSpinner1().getValue();
-            Date data = view.getjDateChooser1().getDate();
-            String formato = ""+view.getjComboBox4().getSelectedItem();
-            String conteudo = view.getjTextArea2().getText();
-            String obs = view.getjTextArea1().getText();
-        if(view.getjButton3().getText().equals("Salvar")){
-           model = new Aula_Model(unidade, data, quantidade, conteudo, obs, formato ,turmamateria);
-           if (dao_aluno.findByTurma(turmamateria.getTurma())!=null){
-           for (Aluno_Model aluno_model : dao_aluno.findByTurma(turmamateria.getTurma())) {
-                model.addAluno(dao_aluno.findByNome(aluno_model.getNome()));
-                
-            }
-           }
-                   Frequencia_Model f = new Frequencia_Model();
 
-           if (dao.inserir(model)){
-               for (Aluno_Model aluno_model : dao_aluno.findByTurma(turmamateria.getTurma())){
-                   f = dao_f.findByAlunoAula(aluno_model, model);
+    public void inserir() {
+        confirmacao = true;
+        String unidade = "" + view.getjComboBox3().getSelectedItem();
+        int quantidade = (int) view.getjSpinner1().getValue();
+        Date data = view.getjDateChooser1().getDate();
+        String formato = "" + view.getjComboBox4().getSelectedItem();
+        String conteudo = view.getjTextArea2().getText();
+        String obs = view.getjTextArea1().getText();
+        if (view.getjButton3().getText().equals("Salvar")) {
+            model = new Aula_Model(unidade, data, quantidade, conteudo, obs, formato, turmamateria);
+            if (dao_aluno.findByTurma(turmamateria.getTurma()) != null) {
+                for (Aluno_Model aluno_model : dao_aluno.findByTurma(turmamateria.getTurma())) {
+                    model.addAluno(dao_aluno.findByNome(aluno_model.getNome()));
 
-               if( dao_f.update(f)){
-                   System.out.println(f.getFaltas());   
-               }
+                }
             }
-               view.imprimir_Na_Tela("Aula inserida com sucesso!");
-               view.hide();
-           }
-        }
-        else if (view.getjButton3().getText().equals("Editar")){
+            Frequencia_Model f = new Frequencia_Model();
+
+            if (dao.inserir(model)) {
+                for (Aluno_Model aluno_model : dao_aluno.findByTurma(turmamateria.getTurma())) {
+                    f = dao_f.findByAlunoAula(aluno_model, model);
+
+                    if (dao_f.update(f)) {
+                        System.out.println(f.getFaltas());
+                    }
+                }
+                view.imprimir_Na_Tela("Aula inserida com sucesso!");
+                view.hide();
+            }
+        } else if (view.getjButton3().getText().equals("Editar")) {
+            lista_f = dao_f.findByAula(model);
+            
+            
+            for (Frequencia_Model f : lista_f){
+            if (f.getFaltas()>0 && quantidade_inicial != quantidade){
+                m = new Menssagem_De_Confirmacao(null, true, "Ao editar a quantidade de horários em uma aula", "será apagado todos os registros das faltas dessa aula", "Atenção");
+                m.setVisible(true);
+                confirmacao=m.retornar();
+                if (confirmacao)
+                    dao_f.cancelFouls(model);
+                break;
+            }
+            }
             model.setUnidade(unidade);
             model.setData(data);
             model.setFormato(formato);
             model.setQuantidade(quantidade);
             model.setConteudo(conteudo);
             model.setObs(obs);
-            if (dao.editar(model)){
-               view.imprimir_Na_Tela("Aula editada com sucesso!");
-               view.hide();
-           }
-        }
-        else{
-             if (dao.excluir(model)){
-               view.imprimir_Na_Tela("Aula excluida com sucesso!");
-               view.hide();
-           }
+            
+                if (confirmacao){
+            if (dao.editar(model)) {
+                view.imprimir_Na_Tela("Aula editada com sucesso!");
+                view.hide();
+            }}
+        } else {
+            if (dao.excluir(model)) {
+                view.imprimir_Na_Tela("Aula excluida com sucesso!");
+                view.hide();
+            }
         }
     }
-    
-    }
-    
 
+}
