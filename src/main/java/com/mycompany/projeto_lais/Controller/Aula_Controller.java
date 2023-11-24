@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author Artur
@@ -41,6 +42,7 @@ public class Aula_Controller {
     private Turma_Materia_Model turmamateria;
     private DefaultTableModel dm;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+    private Validacao validacao;
 
 
     public Aula_Controller(Aula view, Turma_Materia_Model turmamateria) {

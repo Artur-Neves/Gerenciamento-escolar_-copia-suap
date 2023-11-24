@@ -42,6 +42,7 @@ public class Atividade_Controller {
     private DefaultTableModel dm;
     private ArrayList<Atividade_Model> atividades;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+    public Validacao validacao;
 
     public Atividade_Controller(Atividade view, Turma_Materia_Model turmamateria) {
         this.view = view;
@@ -113,7 +114,7 @@ public class Atividade_Controller {
     }
  String[] dados = new String [5];
  String unidade = ""+view.getjComboBox1().getSelectedItem();
- List<Atividade_Model> lista= dao.findByTurmaMateria(turmamateria, unidade);
+ List<Atividade_Model> lista= dao.findByTurmaMateriaUnidade(turmamateria, unidade);
  atividades.clear();
  if (lista!=null){
         for (Atividade_Model  atividade : lista) {

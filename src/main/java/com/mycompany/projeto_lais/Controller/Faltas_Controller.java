@@ -45,7 +45,7 @@ public class Faltas_Controller {
     Map<Integer, Aluno_Model> nome;
     
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
+    private Validacao validacao;
     public Faltas_Controller(Faltas view, Turma_Materia_Model modelTm) {
         dm = (DefaultTableModel) view.getjTable1().getModel();
         this.view = view;

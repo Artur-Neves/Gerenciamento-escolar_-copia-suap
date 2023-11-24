@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author g15
@@ -53,6 +54,7 @@ public class Atribuir_Nota_Controller {
     private double nota2;
     private double nota3;
     private double nota1;
+    public Validacao validacao;
     
 
     public Atribuir_Nota_Controller(Atribuir_Nota view, Turma_Materia_Model turmamateria) {
@@ -73,7 +75,7 @@ public class Atribuir_Nota_Controller {
         view.setExtendedState(Atribuir_Nota.MAXIMIZED_BOTH);
         view.getjComboBox2().removeAll();
         for (Unidade_Enum unidade : Unidade_Enum.values()){
-           view.getjComboBox2().addItem(unidade.name());
+           view.getjComboBox2().addItem(unidade.toString());
         }
         atualizar();
     }
@@ -157,7 +159,8 @@ public class Atribuir_Nota_Controller {
          String unidade = ""+view.getjComboBox2().getSelectedItem();
          listAluno_Atividade =  dao.findByTurmaMateria(turmamateria);
          listAluno = dao_aluno.findByTurma(turmamateria.getTurma());
-         listAtividade = dao_atvd.findByTurmaMateria(turmamateria, unidade);
+         System.out.println("unidade: "+unidade);
+         listAtividade = dao_atvd.findByTurmaMateriaUnidade(turmamateria, unidade);
          
          
          String[] dados = new String [100];
@@ -167,9 +170,9 @@ public class Atribuir_Nota_Controller {
              int i = 0;
              int numero=0;
              dm.addColumn("#");
-             dm.addColumn("descrição");
-            
-             for (int a = 0; a <= listAtividade.size()-1; a++){
+             dm.addColumn("Aluno (a)");
+             
+             for (int a = 0; a < listAtividade.size(); a++){
                  dm.addColumn(listAtividade.get(a).getDescricao());
              }
  
@@ -241,7 +244,7 @@ public class Atribuir_Nota_Controller {
         dm = new DefaultTableModel();
         double media;
         List<Aluno_Model> improviso= new ArrayList<>();
-         String unidade = "Recuperacao";
+         
          listAluno = dao_aluno.findByTurma(turmamateria.getTurma());
          listAtividade = dao_atvd.findByTurmaMateriaRecovery(turmamateria, "Recuperação");
         
@@ -249,6 +252,9 @@ public class Atribuir_Nota_Controller {
          nota1 = soma_Das_Notas(a, "Unidade 1");
             nota2 = soma_Das_Notas(a, "Unidade 2");
             nota3 = soma_Das_Notas(a, "Unidade 3");
+             System.out.println(nota1);
+             System.out.println(nota2);
+             System.out.println(nota3);
             media = (nota1+nota2+nota3)/3;
              
                 if (media<5){
@@ -288,17 +294,19 @@ public class Atribuir_Nota_Controller {
              dm.addColumn("Aluno (a)");
              dm.addColumn("Nota da Recuperação");
             
-             
+             System.out.println();
              for (Aluno_Model a : listAluno){
-           
+                 System.out.println("primeira barreira");
                  i++;
                  numero=0;
              dados [0] = ""+i;
              dados [1] = a.getNome();
              
              for (int b = 0; b < listAluno_Atividade.size(); b++){
+                   System.out.println("segunda barreira");
                 // ele ta mostrando a posição errada
                  if(listAluno_Atividade.get(b).getAluno().getIdAluno()== a.getIdAluno()){
+                     
                 // float media = (list.getNota1()+list.getNota2()+list.getNota3())/3;
              dados [numero+2] = ""+listAluno_Atividade.get(b).getValor_recebido();
               System.out.println("atividade recebida " +listAluno_Atividade.get(b).getAtividade().getDescricao()+"posição "+(numero+2));
@@ -327,7 +335,7 @@ private String valor;
         return str != null && str.matches("[0-9].*");
     }
      public double soma_Das_Notas(Aluno_Model aluno, String unidade){
-       listAluno_Atividade = dao.findByAlunoUnidade(aluno, unidade); 
+       listAluno_Atividade = dao.findByAlunoUnidade(aluno, unidade, turmamateria); 
        double valor =0;
        double quantidade=0;
        double valor_peso= 0;
@@ -338,7 +346,7 @@ private String valor;
             case "Soma simples":
                 valor = valor+at.getValor_recebido();
                 quantidade=1;
-                System.out.println("ta caindo aqui");
+             
                 break;
                  case "Média Aritmética":
                   quantidade++;
@@ -364,7 +372,7 @@ private String valor;
                 break;
         }
         }}
-    return valor;
+    return valor/quantidade;
 }
 }
 

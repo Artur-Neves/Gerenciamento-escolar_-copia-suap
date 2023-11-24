@@ -51,6 +51,8 @@ public class Cadastro_Atividade_Controller {
     private Aluno_Atividade_dao dao_at;
     private Menssagem_De_Confirmacao m;
     private double valido;
+    public Validacao validacao;
+    private boolean erro;
 
     public Cadastro_Atividade_Controller(Cadastro_Atividade view, Turma_Materia_Model turmamateria) {
         this.view = view;
@@ -64,7 +66,7 @@ public class Cadastro_Atividade_Controller {
         model.setPeso(0);
         dao_at = new Aluno_Atividade_dao();
         this.turmamateria = dao_tm.findbyturmamateria(turmamateria);
-
+     validacao = new Validacao(20);
     }
 
     public Cadastro_Atividade_Controller(Cadastro_Atividade view, Atividade_Model model, Turma_Materia_Model turmamateria) {
@@ -77,7 +79,7 @@ public class Cadastro_Atividade_Controller {
         dao_at = new Aluno_Atividade_dao();
         this.model = model;
         valido = model.getValor();
-        
+         validacao = new Validacao(20);
 
         this.turmamateria = dao_tm.findbyturmamateria(turmamateria);
 
@@ -106,11 +108,15 @@ public class Cadastro_Atividade_Controller {
         } else {
             atualizar();
         }
+           view.getjTextField1().setDocument( new Validacao(5));
+            view.getjTextField1().setDocument( new Validacao(5));
+             view.getjTextField1().setDocument( new Validacao(5));
+             view.getjTextArea2().setDocument( new Validacao(1000));
 
     }
 
     public void atualizar() {
-        lista = dao.findByTurmaMateria(turmamateria, "" + view.getjComboBox4().getSelectedItem());
+        lista = dao.findByTurmaMateriaUnidade(turmamateria, "" + view.getjComboBox4().getSelectedItem());
         if (lista.size() > 0) {
             System.out.println("tamanho da lista" + lista.size());
             view.getjComboBox3().setSelectedItem(lista.get(0).getCalculo());
@@ -168,7 +174,7 @@ public class Cadastro_Atividade_Controller {
         }
     }
 
-    public void atualizar_Dados() {
+        public void atualizar_Dados() {
         try {
             unidade = "" + view.getjComboBox4().getSelectedItem();
             valor = Double.parseDouble(view.getjTextField1().getText());
@@ -181,7 +187,7 @@ public class Cadastro_Atividade_Controller {
             } else {
                 divisor = 1;
             }
-            lista = dao.findByTurmaMateria(turmamateria, unidade);
+            lista = dao.findByTurmaMateriaUnidade(turmamateria, unidade);
         } catch (Exception e) {
             System.out.println("Problema no atualizar_Dados: " + e.getMessage());
         }
@@ -192,6 +198,7 @@ public class Cadastro_Atividade_Controller {
             peso = Double.parseDouble(view.getjTextField3().getText());
 
         }
+        
 
     }
 
@@ -199,6 +206,8 @@ public class Cadastro_Atividade_Controller {
         atualizar_Dados();
         confirmacao = true;
         double comparar;
+        
+            if (view.getjDateChooser1().getDate()!=null){
         if (formato.equals("Média Ponderada")) {
             comparar = peso;
         } else {
@@ -207,7 +216,7 @@ public class Cadastro_Atividade_Controller {
 
         if (view.getjButton3().getText().equals("Salvar")) {
             model = new Atividade_Model(formato, valor, data, descricao, unidade, turmamateria, divisor, peso);
-
+ if (valor_Maximo() >= comparar) {
             if (lista.size() == 0) {
                 Menssagem_De_Confirmacao mc = new Menssagem_De_Confirmacao(null, true, "Uma vez que você escolhar um método de avaliação para",
                         "essa unidade, não será mais possível mudar esse método!", "Atenção");
@@ -216,7 +225,7 @@ public class Cadastro_Atividade_Controller {
             }
             if (confirmacao) {
 
-                if (valor_Maximo() >= comparar) {
+               
 
                     System.out.println(peso);
                     if (dao_aluno.findByTurma(turmamateria.getTurma()) != null) {
@@ -279,13 +288,32 @@ public class Cadastro_Atividade_Controller {
                 view.hide();
             }
         }
-    }
+        }
+            else{
+                m = new Menssagem_De_Confirmacao(null, true, "Insira uma data válida", "", "Atenção");
+                    m.setVisible(true);
+            }
+        }
+        
+    
 
     public double valor_Maximo() {
         atualizar_Dados();
         double valor_total = 0;
         double valor_restante = 10;
-        double divisor = 1;
+       
+        
+        if ( lista.size()==0 && formato.equals("Soma com Divisor Informado")){
+            if ((valor/divisor)>10){
+             
+            }
+            else {
+                valor_restante = 100;    
+            }
+       ;
+        }
+        
+        
         for (Atividade_Model atvd : lista) {
             switch (atvd.getCalculo()) {
                 case "Soma simples":
@@ -323,6 +351,7 @@ public class Cadastro_Atividade_Controller {
         return valor_restante * divisor;
 
     }
+    
 
     public void mudarcor() {
 

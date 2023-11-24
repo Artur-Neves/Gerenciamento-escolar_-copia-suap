@@ -44,7 +44,8 @@ public class Cadastro_Aula_Controller {
     private List<Frequencia_Model> lista_f;
     private Menssagem_De_Confirmacao m;
     private int quantidade_inicial;
-
+    private Validacao validacao;
+    
     public Cadastro_Aula_Controller(Cadastro_Aula view, Turma_Materia_Model turmamateria) {
         this.view = view;
         dao = new Aula_dao();
@@ -93,6 +94,9 @@ public class Cadastro_Aula_Controller {
             view.getjTextArea1().setText(model.getObs());
             view.getjTextArea2().setText(model.getConteudo());
         }
+        view.getjTextArea1().setDocument( new Validacao(30000));
+        view.getjTextArea2().setDocument( new Validacao(30000));
+  
 
     }
 
@@ -104,6 +108,7 @@ public class Cadastro_Aula_Controller {
         String formato = "" + view.getjComboBox4().getSelectedItem();
         String conteudo = view.getjTextArea2().getText();
         String obs = view.getjTextArea1().getText();
+        if (Integer.parseInt(view.getjSpinner1().getValue().toString())>0){
         if (view.getjButton3().getText().equals("Salvar")) {
             model = new Aula_Model(unidade, data, quantidade, conteudo, obs, formato, turmamateria);
             if (dao_aluno.findByTurma(turmamateria.getTurma()) != null) {
@@ -156,7 +161,12 @@ public class Cadastro_Aula_Controller {
                 view.imprimir_Na_Tela("Aula excluida com sucesso!");
                 view.hide();
             }
-        }
+        }}
+        else{
+                Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true , "Coloque uma quantidade válida de aulas", unidade, "Atenção");
+                m.setVisible(true);
+                }
+        
     }
 
 }

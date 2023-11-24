@@ -36,7 +36,7 @@ public class Aluno_dao {
     }
 
     public List<Aluno_Model> findByTurma(Turma_Model turma) {
-        String query = "select a from aluno a where a.turma= :turma order by a.nome";
+        String query = "select a from aluno a where a.turma= :turma order by a.nome ";
         List<Aluno_Model> a = new ArrayList<Aluno_Model>();
         try {
             em = new Entity_Manager().ent();
@@ -109,9 +109,9 @@ public class Aluno_dao {
     public List<Aluno_Model> find(Turma_Model turma, String coluna, String texto) {
         String query = null;
         if (isInteger(texto)) {
-            query = "select a FROM aluno a WHERE CAST(a." + coluna + " AS VARCHAR) LIKE :valor";
+            query = "select a FROM aluno a WHERE CAST(a." + coluna + " AS VARCHAR) LIKE :valor order by a.nome";
         } else {
-            query = "select a FROM aluno a WHERE a." + coluna + " LIKE :valor";
+            query = "select a FROM aluno a WHERE a." + coluna + " LIKE :valor order by a.nome";
         }
 
         List<Aluno_Model> a = new ArrayList<Aluno_Model>();
@@ -154,7 +154,7 @@ public class Aluno_dao {
     }
 
     public Aluno_Model findByNameAndTurma(Aluno_Model aluno, Turma_Model turma) {
-        String query = "select a from aluno a where a.nome = :nome and a.turma = :turma";
+        String query = "select a from aluno a where a.nome = :nome and a.turma = :turma order by a.nome";
         Aluno_Model a = new Aluno_Model();
         try {
             em = new Entity_Manager().ent();

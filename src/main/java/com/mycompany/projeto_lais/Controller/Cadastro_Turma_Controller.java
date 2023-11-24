@@ -10,14 +10,9 @@ import com.mycompany.projeto_lais.Model.Dao.Turma_dao;
 import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import com.mycompany.projeto_lais.View.Cadastro_Turma;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -31,6 +26,7 @@ public class Cadastro_Turma_Controller {
     private Turma_dao dao;
     private Materia_dao dao_materia;
     Materia_Model selecionado;
+    private Validacao validacao;
 
     public Cadastro_Turma_Controller(Cadastro_Turma view, Materia_Model materia) {
         this.view = view;
@@ -120,7 +116,7 @@ public class Cadastro_Turma_Controller {
         }
         view.getjComboBox2().setSelectedItem(selecionado.getNome());
         addMateria();
-
+        view.getjTextField1().setDocument( new Validacao(40));
     }
 
     public void addMateria() {

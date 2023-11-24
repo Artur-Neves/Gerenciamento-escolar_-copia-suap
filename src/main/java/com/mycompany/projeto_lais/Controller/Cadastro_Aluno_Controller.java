@@ -38,6 +38,7 @@ public class Cadastro_Aluno_Controller {
     private Materia_dao dao_materia;
     private Materia_Model materia;
     private Aluno_Atividade_dao dao_aluno_atividade;
+    private Validacao validacao;
 
     public Cadastro_Aluno_Controller(Cadastro_Aluno view, Turma_Materia_Model turmamateria, Aluno_Model aluno) {
         this.view = view;
@@ -83,8 +84,8 @@ public class Cadastro_Aluno_Controller {
                     a.addAluno(model);
                     daof.editar(a);
                 }}
-                    if (dao_atvd.findByTurmaMateria(turmamateria, "")!=null){
-                        for(Atividade_Model ativd : dao_atvd.findByTurmaMateria(turmamateria, "")){
+                    if (dao_atvd.findByTurmaMateriaUnidade(turmamateria, "")!=null){
+                        for(Atividade_Model ativd : dao_atvd.findByTurmaMateria(turmamateria)){
                             ativd.addAluno(model);
                             dao_atvd.update(ativd);
                         }} 
@@ -128,6 +129,7 @@ public class Cadastro_Aluno_Controller {
             view.getjComboBox1().setSelectedItem(dao_turma.findbyId(aluno.getTurma().getIdTurma()));
 
         }
-    }
-
+   
+    view.getjTextField1().setDocument( new Validacao(60));
+ }
 }

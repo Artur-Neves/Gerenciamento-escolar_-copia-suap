@@ -40,6 +40,7 @@ public class Cadastro_Materia_Controller {
     private long tamanho;
     private Turma_dao dao_turma = new Turma_dao();
     private List<Turma_Model> turma = new ArrayList<>();
+    private Validacao validacao;
  
 
     public Cadastro_Materia_Controller(Cadastro_Materia view) {
@@ -234,7 +235,7 @@ public class Cadastro_Materia_Controller {
             }
             view.getjPanel2().setVisible(true);
         }
-        
+        view.getjTextField1().setDocument( new Validacao(40));
 
     }
 

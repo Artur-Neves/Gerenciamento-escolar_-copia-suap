@@ -65,7 +65,7 @@ public class Atividade_dao {
             return validar;
         }
     }
-    public List<Atividade_Model> findByTurmaMateria( Turma_Materia_Model turmamateria, String unidade){
+    public List<Atividade_Model> findByTurmaMateriaUnidade( Turma_Materia_Model turmamateria, String unidade){
            List<Atividade_Model> atividader= null;
            String recu = "Recuperação";
            String query=null;
@@ -107,8 +107,27 @@ public class Atividade_dao {
                
             em.close();
             return atividader;
+        }}
+        
+           public List<Atividade_Model> findByTurmaMateria( Turma_Materia_Model turmamateria){
+           List<Atividade_Model> atividader= null;
+           String query= "select a from atividade a where a.turmamateria= :turma order by a.data desc";
+           try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            atividader = em.createQuery(query).setParameter("turma", turmamateria).getResultList();          
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.out.println(" findByTurmaMateria Atividade"+e);
+            
+        } finally {
+            em.close();
+            return atividader;
         }
     }
+
+    
    
     
    

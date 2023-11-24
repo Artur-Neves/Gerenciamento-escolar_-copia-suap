@@ -23,6 +23,7 @@ public class Turma_Controller {
     private Turma_Model model;
     Materia_Model materia;
     private Turma_dao dao;
+    private Validacao validacao;
     public Turma_Controller(Turma view, Materia_Model materia) {
         this.view = view;
         this.materia=materia;

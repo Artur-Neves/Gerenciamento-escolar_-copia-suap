@@ -6,8 +6,12 @@ package com.mycompany.projeto_lais.Controller;
 
 import com.mycompany.projeto_lais.Model.Aluno_Atividade_Model;
 import com.mycompany.projeto_lais.Model.Aluno_Model;
+import com.mycompany.projeto_lais.Model.Atividade_Model;
+import static com.mycompany.projeto_lais.Model.Atividade_Model_.aluno;
+import static com.mycompany.projeto_lais.Model.Atividade_Model_.unidade;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
+import com.mycompany.projeto_lais.Model.Dao.Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Frequencia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_Materia_dao;
@@ -46,17 +50,21 @@ public class Aluno_Controller {
     private DefaultTableModel dm;
     private List<Aluno_Atividade_Model> lista_At;
     private List<Frequencia_Model> lista_f;
+    private List<Atividade_Model> lista_t;
+    private List<Aluno_Model> lista_a;
     private Frequencia_dao dao_aa;
+    private Atividade_dao dao_t;
     private double nota1;
     private double nota2;
     private double nota3;
     private double media;
     private int[] faltas;
     private int frequencia;
-   
+    private boolean termino= false;
+    public Validacao validacao;
 
     
-    DecimalFormat df = new DecimalFormat("#,###.0");
+    DecimalFormat df = new DecimalFormat("#.##");
 
 
     public Aluno_Controller(Aluno view, Turma_Model turma, Materia_Model materia) {
@@ -73,6 +81,8 @@ public class Aluno_Controller {
         this.materia = materia;
         this.turmamateria = new Turma_Materia_Model(turma, dao_materia.findByName(materia.getNome()));
         this. turmamateria = dao_tm.findbyturmamateria(turmamateria);
+        this.dao_t = new Atividade_dao();
+        this.lista_a = new ArrayList<>();
          dm = (DefaultTableModel) view.getjTable1().getModel(); 
          System.out.println("vai por favor");
         
@@ -82,11 +92,17 @@ public class Aluno_Controller {
     public void iniciar() {
         view.setExtendedState(Materia.MAXIMIZED_BOTH);
         atualizar();
-        
+        view.getjTextField1().setDocument( new Validacao(60));
+    }
+    public void atualizar_dados(){
+    
     }
 
     public void atualizar() {
-
+       pesquisar();
+        termino= false;
+        valor_Maximo();
+        
         if (view.getjTable1().getModel().getRowCount() > 0) {
             for (int i = view.getjTable1().getModel().getRowCount() - 1; i >= 0; i--) {
                 dm.removeRow(i);
@@ -94,14 +110,19 @@ public class Aluno_Controller {
             view.getjTable1().setModel(dm);
         }
         String[] dados = new String[9];
-        for (Aluno_Model a : dao.findByTurma(turma)) {
+        for (Aluno_Model a : lista_a) {
+            a.setSituacao(passarOrNot(a, media, media));
+            double recuperacao = 0;
             nota1 = soma_Das_Notas(a, "Unidade 1");
             nota2 = soma_Das_Notas(a, "Unidade 2");
             nota3 = soma_Das_Notas(a, "Unidade 3");
             faltas = faltas(a);
             frequencia = 100-((faltas[0]*100)/faltas[1]);
             media = (nota1+nota2+nota3)/3;
-            double recuperacao = dao_at.findByAlunoUnidade(a, "Recuperação").get(0).getValor_recebido();
+            if (dao_at.findByAlunoUnidade(a, "Recuperação", turmamateria)!=null)
+            recuperacao = dao_at.findByAlunoUnidade(a, "Recuperação", turmamateria).get(0).getValor_recebido();
+             a.setSituacao(passarOrNot(a, media, recuperacao));
+             dao.update(a);
             dados[0] = a.getNome();
             dados[1] = ""+faltas[0];
             dados[2] = frequencia+"%";
@@ -149,38 +170,38 @@ public class Aluno_Controller {
 
     public void pesquisar() {
         if (!view.getjTextField1().getText().trim().isEmpty()) {
-            String coluna=null;
-            switch (view.getjComboBox1().getSelectedIndex()) {
-                case 0:
-                  coluna="nome";
-                    break;
-                case 1:
-                    coluna="nFaltas";
-                    break;
-                case 2:
-                    coluna="frequencia";
-                    break;
-                case 3:
-                    coluna="situacao";
-                    break;
-                case 4:
-                    coluna="nota1";
-                    break;
-                case 5:
-                    coluna="nota2";
-                    break;
-                case 6:
-                    coluna="nota3";
-                    break;
-                case 7:
-                    coluna="recuperacao";
-                    break;
-                    case 8:
-                        coluna="media";
-                    break;
-                default:
-                    throw new AssertionError();
-            }
+            String coluna="nome";
+//            switch (view.getjComboBox1().getSelectedIndex()) {
+//                case 0:
+//                  coluna="nome";
+//                    break;
+//                case 1:
+//                    coluna="nFaltas";
+//                    break;
+//                case 2:
+//                    coluna="frequencia";
+//                    break;
+//                case 3:
+//                    coluna="situacao";
+//                    break;
+//                case 4:
+//                    coluna="nota1";
+//                    break;
+//                case 5:
+//                    coluna="nota2";
+//                    break;
+//                case 6:
+//                    coluna="nota3";
+//                    break;
+//                case 7:
+//                    coluna="recuperacao";
+//                    break;
+//                    case 8:
+//                        coluna="media";
+//                    break;
+//                default:
+//                    throw new AssertionError();
+//            }
             if (view.getjTable1().getModel().getRowCount() > 0) {
             for (int i = view.getjTable1().getModel().getRowCount() - 1; i >= 0; i--) {
                 dm.removeRow(i);
@@ -188,23 +209,12 @@ public class Aluno_Controller {
             view.getjTable1().setModel(dm);
         }
            String texto = view.getjTextField1().getText();
-        String[] dados = new String[10];
-        for (Aluno_Model a : dao.find(turma, coluna, texto)) {
-            dados[0] = a.getNome();
-            dados[4] = "" + a.getSituacao();
-            dados[5] = "0";
-            dados[6] = "0";
-            dados[7] = "0";
-            dados[8] = "0";
-            dados[9] = "0";
-            dm.addRow(dados);
-        }
-        view.getjTable1().setModel(dm);
-        }
-        else{
-            atualizar();
-        }
+                   lista_a = dao.find(turmamateria.getTurma(), coluna, texto);
+
     }
+        else {
+             lista_a =dao.findByTurma(turmamateria.getTurma());
+        } }
 
     public void entrarAula() {
        Aula aula = new Aula(turmamateria);
@@ -218,7 +228,7 @@ public class Aluno_Controller {
        view.hide();   
     }
     public double soma_Das_Notas(Aluno_Model aluno, String unidade){
-       lista_At = dao_at.findByAlunoUnidade(aluno, unidade); 
+       lista_At = dao_at.findByAlunoUnidade(aluno, unidade, turmamateria); 
        double valor =0;
        double quantidade=0;
        double valor_peso= 0;
@@ -257,9 +267,77 @@ public class Aluno_Controller {
         }}
         return valor/quantidade;
     }
+     public void valor_Maximo() {
+       double valor_total = 0;
+        double valor_restante = 30;
+        double divisor = 1;
+        
+         for (int i=1; i<4; i++){
+        lista_t = dao_t.findByTurmaMateriaUnidade(turmamateria, "Unidade "+i);
+        if (lista_t.get(0).getCalculo().equals("Maior Nota"))
+            valor_restante = valor_restante-10;
+         valor_total = 0;
+        for (Atividade_Model atvd : lista_t) {
+            switch (atvd.getCalculo()) {
+                case "Soma simples":
+                    valor_total = valor_total + atvd.getValor();
+                    
+
+                    break;
+                case "Média Aritmética":
+                    valor_total = valor_total;
+                   
+                    break;
+                case "Média Ponderada":
+                    valor_total = valor_total + atvd.getPeso();
+               
+
+                    break;
+                case "Soma com Divisor Informado":
+                    divisor = atvd.getDivisor();
+                    valor_total = valor_total + atvd.getValor();
+               
+
+                    break;
+                case "Maior Nota":
+                    valor_total = valor_total;
+                    
+                    break;
+                default:
+                    break;
+            }
+        }
+        System.out.println(" valor total " + (valor_total) / divisor);
+        valor_restante = valor_restante - (valor_total) / divisor;
+        System.out.println("Valor restante" + valor_restante);}
+        if (valor_restante==0.0){
+            termino=true;
+            System.out.println("termino "+termino);
+        }
+
+    }
+    public String passarOrNot(Aluno_Model aluno, double media, double recuperacao){
+        String situacao;
+        if (termino){
+        if (media>=5){
+            situacao = "Aluno aprovado por nota";
+        }
+        else {
+            if (recuperacao>5){
+                situacao = "Aluno aprovado por recuperação";
+            }
+            else{
+                situacao = "Aluno reprovado";
+            }
+        }}
+        else {
+            situacao = "Cursando";
+        }
+        return situacao;
+    }
     public int[] faltas(Aluno_Model aluno){
         int[] quantidade_faltas = new int[2];
-        quantidade_faltas[0]=0;
+       quantidade_faltas[0]=0;
        quantidade_faltas[1]=0;
 
       
@@ -268,6 +346,9 @@ public class Aluno_Controller {
             quantidade_faltas[0] = quantidade_faltas[0] + f.getFaltas();
             quantidade_faltas[1] = quantidade_faltas[1] +f.getIdAula().getQuantidade();
               }
+            if (quantidade_faltas[1]==0.0){
+                quantidade_faltas[1]=1;
+            }
             return quantidade_faltas;
     }
 

@@ -22,6 +22,7 @@ public class Materia_Controller {
     private Materia view;
     private Materia_dao dao = new Materia_dao();
     private Aluno_Model aluno;
+    private Validacao validacao;
 
     public Materia_Controller(Materia view) {
         this.view = view;
