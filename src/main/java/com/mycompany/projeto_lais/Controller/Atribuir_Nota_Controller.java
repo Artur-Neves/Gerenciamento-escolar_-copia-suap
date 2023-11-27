@@ -43,7 +43,6 @@ public class Atribuir_Nota_Controller {
     private Turma_Model turma;
     private Turma_Materia_Model turmamateria;
     private DefaultTableModel dm;
-    private ArrayList<Atividade_Model> atividades;
     private Aluno_Atividade_Model model;
     private List<Aluno_Atividade_Model>listAluno_Atividade;
     private List<Aluno_Model>listAluno;
@@ -55,6 +54,7 @@ public class Atribuir_Nota_Controller {
     private double nota3;
     private double nota1;
     public Validacao validacao;
+    private Date dataAtual;
     
 
     public Atribuir_Nota_Controller(Atribuir_Nota view, Turma_Materia_Model turmamateria) {
@@ -70,6 +70,8 @@ public class Atribuir_Nota_Controller {
         nota2=0;
         nota3=0;
         nota1=0;
+        dataAtual = new Date();
+        
     }
     public void iniciar(){
         view.setExtendedState(Atribuir_Nota.MAXIMIZED_BOTH);
@@ -91,8 +93,8 @@ public class Atribuir_Nota_Controller {
                 Aluno_Model alunol = listAluno.get(depois.get(i).linha);
                 Atividade_Model atividadec = listAtividade.get(depois.get(i).coluna-2);
                 if (isInteger(depois.get(i).valor)){
-                    float a = Float.parseFloat(depois.get(i).valor);
-                    float b;
+                    double a = Double.parseDouble(depois.get(i).valor);
+                    double b;
                     if(antes.get(i).valor!=null){
                         b =  Float.parseFloat(antes.get(i).valor);
                     }
@@ -105,7 +107,7 @@ public class Atribuir_Nota_Controller {
                         
                         if (a<=atividadec.getValor()){
                             Aluno_Atividade_Model at = dao.findByAlunoAtividade(alunol, atividadec);
-                        at.setValor_recebido(a);
+                        at.setValor_recebido((float) a);
                         
                         if (dao.update(at)){
                             System.out.println("linha: "+depois.get(i).linha);
@@ -118,7 +120,7 @@ public class Atribuir_Nota_Controller {
                                 validacao=false;
                     }}
                         else{
-                            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(view, validacao, "O valor máximo da atividade "+atividadec.getDescricao(), "é "+atividadec.getValor(), "Atenção");
+                            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(view, validacao, "O valor máximo da atividade "+atividadec.getDescricao(), "é "+atividadec.getValor()+ "valor que quer ser mudado: "+a, "Atenção");
                             m.setVisible(true);
                             validacao=false;
                             break;
@@ -237,6 +239,7 @@ public class Atribuir_Nota_Controller {
 
     public void iniciar_Recuperacao() {
         view.setExtendedState(Atribuir_Nota.MAXIMIZED_BOTH);
+        view.getjDateChooser1().setDate(dataAtual);
         atualizar_Recuperacao();
     }
 
@@ -274,6 +277,7 @@ public class Atribuir_Nota_Controller {
              recu.setTurmamateria(turmamateria);
              recu.setUnidade("Recuperação");
              recu.setValor(10.0);
+             recu.setData(dataAtual);
              if(dao_atvd.insert(recu)){
               listAtividade = dao_atvd.findByTurmaMateriaRecovery(turmamateria, "Recuperação");
                      }
@@ -375,4 +379,3 @@ private String valor;
     return valor/quantidade;
 }
 }
-

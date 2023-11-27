@@ -10,7 +10,7 @@ import com.mycompany.projeto_lais.Model.Aluno_Model;
 import com.mycompany.projeto_lais.Model.Aula_Model;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aula_dao;
-import com.mycompany.projeto_lais.Model.Dao.Frequencia_dao;
+import com.mycompany.projeto_lais.Model.Dao.Aluno_Aula_dao;
 import com.mycompany.projeto_lais.Model.Dao.Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_dao;
@@ -38,7 +38,7 @@ public class Cadastro_Aula_Controller {
     private Aluno_Model aluno;
     private Turma_Model turma;
     private Turma_Materia_dao dao_tm;
-    private Frequencia_dao dao_f;
+    private Aluno_Aula_dao dao_f;
     private Turma_Materia_Model turmamateria;
     private boolean confirmacao;
     private List<Frequencia_Model> lista_f;
@@ -53,7 +53,7 @@ public class Cadastro_Aula_Controller {
         dao_turma = new Turma_dao();
         dao_materia = new Materia_dao();
         dao_tm = new Turma_Materia_dao();
-        dao_f = new Frequencia_dao();
+        dao_f = new Aluno_Aula_dao();
         lista_f = new ArrayList<>();
         this.turmamateria = dao_tm.findbyturmamateria(turmamateria);
 
@@ -66,7 +66,7 @@ public class Cadastro_Aula_Controller {
         dao_turma = new Turma_dao();
         dao_materia = new Materia_dao();
         dao_tm = new Turma_Materia_dao();
-        dao_f = new Frequencia_dao();
+        dao_f = new Aluno_Aula_dao();
         this.model = aula;
         lista_f = new ArrayList<>();
         quantidade_inicial =model.getQuantidade();
@@ -75,6 +75,8 @@ public class Cadastro_Aula_Controller {
     }
 
     public void iniciar() {
+               view.getjTextArea1().setDocument( new Validacao(30000));
+        view.getjTextArea2().setDocument( new Validacao(30000));
         Date data = new Date();
         System.out.println(data);
         if (view.getjButton3().getText().equals("Salvar")) {
@@ -94,8 +96,7 @@ public class Cadastro_Aula_Controller {
             view.getjTextArea1().setText(model.getObs());
             view.getjTextArea2().setText(model.getConteudo());
         }
-        view.getjTextArea1().setDocument( new Validacao(30000));
-        view.getjTextArea2().setDocument( new Validacao(30000));
+ 
   
 
     }

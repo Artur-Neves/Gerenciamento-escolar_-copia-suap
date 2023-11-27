@@ -53,6 +53,7 @@ public class Cadastro_Atividade_Controller {
     private double valido;
     public Validacao validacao;
     private boolean erro;
+    private Date dataAtual;
 
     public Cadastro_Atividade_Controller(Cadastro_Atividade view, Turma_Materia_Model turmamateria) {
         this.view = view;
@@ -67,6 +68,7 @@ public class Cadastro_Atividade_Controller {
         dao_at = new Aluno_Atividade_dao();
         this.turmamateria = dao_tm.findbyturmamateria(turmamateria);
      validacao = new Validacao(20);
+     dataAtual = new Date();
     }
 
     public Cadastro_Atividade_Controller(Cadastro_Atividade view, Atividade_Model model, Turma_Materia_Model turmamateria) {
@@ -111,6 +113,7 @@ view.getjTextField1().setDocument( new Validacao(5));
             view.getjTextField3().setText("" + model.getPeso());
 
         } else {
+            view.getjDateChooser1().setDate(dataAtual);
             atualizar();
         }
            
@@ -135,10 +138,11 @@ view.getjTextField1().setDocument( new Validacao(5));
         view.getjTextField3().setEnabled(false);
         view.getjLabel6().setVisible(false);
         view.getjTextField3().setVisible(false);
-
+          
         switch (view.getjComboBox3().getSelectedIndex()) {
             // soma simples
             case 0:
+                if (!view.getjButton3().getText().equals("Excluir"))
                 view.getjTextField1().setEnabled(true);
                 break;
             //Média Aritimetica
@@ -148,6 +152,7 @@ view.getjTextField1().setDocument( new Validacao(5));
             // maedia aritmética Peso
             case 2:
                 view.getjTextField1().setText("10");
+                 if (!view.getjButton3().getText().equals("Excluir"))
                 view.getjTextField3().setEnabled(true);
                 view.getjLabel6().setVisible(true);
                 view.getjTextField3().setVisible(true);
@@ -155,6 +160,7 @@ view.getjTextField1().setDocument( new Validacao(5));
             // soma com divisor informado
             case 3:
                 view.getjLabel5().setVisible(true);
+                 if (!view.getjButton3().getText().equals("Excluir"))
                 view.getjTextField1().setEnabled(true);
                 view.getjTextField2().setVisible(true);
                 if (lista.size() > 0) {
@@ -162,6 +168,7 @@ view.getjTextField1().setDocument( new Validacao(5));
                     view.getjTextField2().setEnabled(false);
 
                 } else {
+                     if (!view.getjButton3().getText().equals("Excluir"))
                     view.getjTextField2().setEnabled(true);
                 }
 

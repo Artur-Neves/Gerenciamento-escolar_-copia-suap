@@ -9,6 +9,7 @@ import com.mycompany.projeto_lais.Model.Dao.Turma_dao;
 import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import com.mycompany.projeto_lais.View.Cadastro_Materia;
+import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -41,7 +42,7 @@ public class Cadastro_Materia_Controller {
     private Turma_dao dao_turma = new Turma_dao();
     private List<Turma_Model> turma = new ArrayList<>();
     private Validacao validacao;
- 
+    
 
     public Cadastro_Materia_Controller(Cadastro_Materia view) {
         this.view = view;
@@ -74,23 +75,15 @@ public class Cadastro_Materia_Controller {
 
                 }
                 else{
-                    view.iprimir_Na_Tela("Já existe uma materia com esse Nome!");
+                   Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Já existe uma materia com esse nome!", "", "Atenção", 0);
+                   m.setVisible(true);
                 }
             }
         } else if(view.getjButton1().getText().equals("Editar")) {
+            materia.getTurma().clear();
             if (imageBytes != null) {
-
-                for (Turma_Model t : dao_turma.selectByMateria(materia.getIdMatricula())) {
-                    t.removeMateria(materia);
-                    dao_turma.editar(t);
-                }
-
-                if (turma.size() != 0) {
-                    for (Turma_Model t : turma) {
-                        t.addMateria(materia);
-                        dao_turma.editar(t);
-                    }
-                }
+               
+                materia.setTurma(turma);
                 materia.setNome(view.getjTextField1().getText());
                 materia.setImagem(imageBytes);
                 if (dao.editar(materia)) {
@@ -98,30 +91,21 @@ public class Cadastro_Materia_Controller {
                     view.hide();
                 }
             } else {
-                for (Turma_Model t : dao_turma.selectByMateria(materia.getIdMatricula())) {
-                    t.removeMateria(materia);
-                    dao_turma.editar(t);
-                }
-
-                if (turma.size() != 0) {
-                    for (Turma_Model t : turma) {
-                        t.addMateria(materia);
-                        dao_turma.editar(t);
-                    }
-                }
+                materia.setTurma(turma);
                 materia.setNome(view.getjTextField1().getText());
                 if (dao.editar(materia)) {
                     view.iprimir_Na_Tela("Edição realizada com sucesso!");
                     view.hide();
                 }
                 else{
-                    view.iprimir_Na_Tela("Já existe uma materia com esse Nome!");
+                    Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Já existe uma materia com esse nome!", "", "Atenção", 0);
+                   m.setVisible(true);
                 }
 
             }
         }
         else{
-            if (turma.size() !=0) {
+        if (turma.size() !=0) {
             for (Turma_Model t : dao_turma.selectByMateria(materia.getIdMatricula())) {
                     t.removeMateria(materia);
                     dao_turma.editar(t);
@@ -133,7 +117,8 @@ public class Cadastro_Materia_Controller {
             
         }}
         else{
-            view.iprimir_Na_Tela("O campo do Nome não pode ficar vazio!");
+            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "O campo do nome não pode ficar vazio", "", "Atenção", 0);
+            m.setVisible(true);
         }
 
     }
@@ -154,7 +139,7 @@ public class Cadastro_Materia_Controller {
                     view.getLabelImagem().setIcon(new ImageIcon(imagem));
                 }
             } catch (IOException e) {
-                System.out.println("atualizar " + e);
+                System.out.println("atualizar " + e.getMessage());
             }
             DefaultListModel n = new DefaultListModel();
             turma.clear();
@@ -226,6 +211,7 @@ public class Cadastro_Materia_Controller {
     }
 
     public void iniciar() {
+        view.getjTextField1().setDocument( new Validacao(40));
         if (dao_turma.selectAll().size() != 0) {
             for (Materia_Model m : dao.selectAll()) {
             view.getjComboBox2().addItem(m.getNome());
@@ -235,7 +221,7 @@ public class Cadastro_Materia_Controller {
             }
             view.getjPanel2().setVisible(true);
         }
-        view.getjTextField1().setDocument( new Validacao(40));
+        
 
     }
 

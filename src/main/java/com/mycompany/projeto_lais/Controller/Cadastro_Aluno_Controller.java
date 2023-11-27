@@ -18,6 +18,7 @@ import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import com.mycompany.projeto_lais.View.Cadastro_Aluno;
+import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
 
 /**
  *
@@ -43,7 +44,7 @@ public class Cadastro_Aluno_Controller {
     public Cadastro_Aluno_Controller(Cadastro_Aluno view, Turma_Materia_Model turmamateria, Aluno_Model aluno) {
         this.view = view;
         this.turma = turmamateria.getTurma();
-        this.aluno = dao.findByNome(aluno.getNome());
+        this.aluno = aluno;
         daof = new Aula_dao();
         dao_tm = new Turma_Materia_dao();
         dao_materia = new Materia_dao();
@@ -112,13 +113,13 @@ public class Cadastro_Aluno_Controller {
             }
         }}
         else{
-                    view.imprimir_Na_Tela("O campo Nome não pode ficar vazio!");
+                    Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "O nome do aluno não pode ficar vazio", "", "Atenção");
                 }
 
     }
 
     public void iniciar() {
-
+   view.getjTextField1().setDocument( new Validacao(60));
         for (Turma_Model t : dao_turma.selectAll()) {
             view.getjComboBox1().addItem(t.getNome());
         }
@@ -130,6 +131,6 @@ public class Cadastro_Aluno_Controller {
 
         }
    
-    view.getjTextField1().setDocument( new Validacao(60));
+ 
  }
 }

@@ -5,14 +5,14 @@
 package com.mycompany.projeto_lais.Controller;
 
 import com.mycompany.projeto_lais.Enums.Series_Enum;
-import com.mycompany.projeto_lais.Model.Dao.Materia_dao;
-import com.mycompany.projeto_lais.Model.Dao.Turma_dao;
 import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import com.mycompany.projeto_lais.View.Cadastro_Turma;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import com.mycompany.projeto_lais.Model.Dao.*;
+import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
 
 /**
  *
@@ -27,12 +27,18 @@ public class Cadastro_Turma_Controller {
     private Materia_dao dao_materia;
     Materia_Model selecionado;
     private Validacao validacao;
+    private Turma_Materia_dao dao_tm;
+    private Aluno_Atividade_dao dao_at;
+    private Aluno_Aula_dao dao_al;
+    private Aluno_dao dao_a;
 
     public Cadastro_Turma_Controller(Cadastro_Turma view, Materia_Model materia) {
         this.view = view;
         this.dao = new Turma_dao();
         this.dao_materia = new Materia_dao();
         this.selecionado = materia;
+        this.dao_al = new Aluno_Aula_dao();
+        this.dao_at = new Aluno_Atividade_dao();
     }
 
     public void atualizar() {
@@ -85,23 +91,28 @@ public class Cadastro_Turma_Controller {
                         view.imprimir_Na_Tela("Edição realizada com sucesso!");
                         view.hide();
                     } else {
-                        view.imprimir_Na_Tela("Já existe uma Turma com esse Nome!");
+                        Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Já existe uma turma com este nome", "", "Atenção", 0);
+                        m.setVisible(true);
+                       
                     }
                 } else {
-                    if (dao.delete(model)) {
+                    if (delete(model)) {
                         view.imprimir_Na_Tela("Exclusão realizada com sucesso!");
                         view.hide();
                     }
                 }
             }
         } else {
-            view.imprimir_Na_Tela("O campo do Nome não pode ficar vazio!");
+            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "O campo do nome não pode ficar vazio!", "", "Atenção", 0);
+                        m.setVisible(true);
+   
 
         }
 
     }
 
     public void iniciar() {
+        view.getjTextField1().setDocument( new Validacao(40));
         view.getjComboBox1().setSelectedIndex(-1);
 
         for (Series_Enum value : Series_Enum.values()) {
@@ -116,7 +127,7 @@ public class Cadastro_Turma_Controller {
         }
         view.getjComboBox2().setSelectedItem(selecionado.getNome());
         addMateria();
-        view.getjTextField1().setDocument( new Validacao(40));
+        
     }
 
     public void addMateria() {
@@ -150,5 +161,9 @@ public class Cadastro_Turma_Controller {
         view.getjList1().removeAll();
         view.getjList1().setModel(n);
     }
-
+public boolean delete(Turma_Model model){
+    dao_al.deleteforTurma(model);
+    dao_at.deleteforTurma(model);
+    return dao.delete(model);
+}
 }

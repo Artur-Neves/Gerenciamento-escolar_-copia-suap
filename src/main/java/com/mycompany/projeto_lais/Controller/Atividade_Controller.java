@@ -18,9 +18,11 @@ import com.mycompany.projeto_lais.View.Atividade;
 import com.mycompany.projeto_lais.View.Atribuir_Nota;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Cadastro_Atividade;
+import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
 import com.mycompany.projeto_lais.View.Turma;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,9 +42,10 @@ public class Atividade_Controller {
     private Turma_Model turma;
     private Turma_Materia_Model turmamateria;
     private DefaultTableModel dm;
-    private ArrayList<Atividade_Model> atividades;
+    private List<Atividade_Model> atividades;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
     public Validacao validacao;
+  
 
     public Atividade_Controller(Atividade view, Turma_Materia_Model turmamateria) {
         this.view = view;
@@ -53,12 +56,14 @@ public class Atividade_Controller {
         dao_aluno = new Aluno_dao();
         dao_Turma = new Turma_dao(); 
         dao_materia = new Materia_dao();
+     
     }
 
     public void iniciar() {
      view.setExtendedState(Atividade.MAXIMIZED_BOTH);
      view.getjComboBox1().removeAllItems();
      view.getjComboBox1().addItem("");
+
      for (Unidade_Enum b :Unidade_Enum.values()){
          view.getjComboBox1().addItem(b.toString());
      }
@@ -136,9 +141,66 @@ view.getjTable1().setModel(dm);
     }
 
     public void entrarRecuperacao() {
+        if (termino_Do_Ano()){
         Atribuir_Nota n = new Atribuir_Nota(turmamateria, "");
         n.setVisible(true);
-        view.hide();
+        view.hide();}
+        else{
+            // apenas um botão
+            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Esta aba somente poderá acessar quando a soma dos", "valores máximos das avaliações de cada unidade for 10.", "Atenção");
+            m.setVisible(true);
+        }
+    }
+      public boolean termino_Do_Ano() {
+       double valor_total = 0;
+        double valor_restante = 30;
+        double divisor = 1;
+        boolean termino=false;
+         for (int i=1; i<4; i++){
+        atividades = dao.findByTurmaMateriaUnidade(turmamateria, "Unidade "+i);
+        if (atividades.size()!=0 &&  atividades.get(0).getCalculo().equals("Maior Nota"))
+            valor_restante = valor_restante-10;
+         valor_total = 0;
+         divisor = 1;
+        for (Atividade_Model atvd : atividades) {
+            switch (atvd.getCalculo()) {
+                case "Soma simples":
+                    valor_total = valor_total + atvd.getValor();
+                    
+
+                    break;
+                case "Média Aritmética":
+                    valor_total = valor_total;
+                   
+                    break;
+                case "Média Ponderada":
+                    valor_total = valor_total + atvd.getPeso();
+               
+
+                    break;
+                case "Soma com Divisor Informado":
+                    divisor = atvd.getDivisor();
+                    valor_total = valor_total + atvd.getValor();
+               
+
+                    break;
+                case "Maior Nota":
+                    valor_total = valor_total;
+                    
+                    break;
+                default:
+                    break;
+            }
+        }
+        System.out.println("Aluno: valor total " + (valor_total) / divisor);
+        valor_restante = valor_restante - (valor_total) / divisor;
+        System.out.println("Aluno: Valor restante" + valor_restante);}
+        if (valor_restante==0.0){
+            termino=true;
+            System.out.println("termino "+termino);
+        }
+        return termino;
+
     }
 
     

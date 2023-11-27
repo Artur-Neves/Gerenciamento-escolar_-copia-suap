@@ -8,6 +8,7 @@ import com.mycompany.projeto_lais.Model.Aluno_Atividade_Model;
 import com.mycompany.projeto_lais.Model.Aluno_Model;
 import com.mycompany.projeto_lais.Model.Atividade_Model;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
+import com.mycompany.projeto_lais.Model.Turma_Model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -127,6 +128,21 @@ public Aluno_Atividade_Model findByAlunoAtividade(Aluno_Model aluno, Atividade_M
         em.close();
         return aluno_atividade;
     }
+    }
+
+     public void deleteforTurma(Turma_Model turma) {
+       String query = "delete from aluno_atividade a where a.turmamateria.turma= :turma";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("turma", turma).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
     }
      
 }

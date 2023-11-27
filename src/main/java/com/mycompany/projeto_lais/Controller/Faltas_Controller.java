@@ -8,7 +8,7 @@ import com.mycompany.projeto_lais.Model.Aluno_Model;
 import com.mycompany.projeto_lais.Model.Aula_Model;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aula_dao;
-import com.mycompany.projeto_lais.Model.Dao.Frequencia_dao;
+import com.mycompany.projeto_lais.Model.Dao.Aluno_Aula_dao;
 import com.mycompany.projeto_lais.Model.Frequencia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
 import com.mycompany.projeto_lais.View.Aluno;
@@ -35,7 +35,7 @@ public class Faltas_Controller {
     private Turma_Materia_Model modelTm;
     private Aluno_Model modelAluno;
     private Aluno_dao daoAluno;
-    private Frequencia_dao daof;
+    private Aluno_Aula_dao daof;
     private ArrayList<Localizacao> antes;
     private ArrayList<Localizacao> depois;
     private DefaultTableModel dm;
@@ -52,7 +52,7 @@ public class Faltas_Controller {
         this.modelTm = modelTm;
         daoAula = new Aula_dao();
         daoAluno = new Aluno_dao();
-        daof = new Frequencia_dao();
+        daof = new Aluno_Aula_dao();
         System.out.println(modelTm.getId());
         antes= new ArrayList<>();
         depois= new ArrayList<>();

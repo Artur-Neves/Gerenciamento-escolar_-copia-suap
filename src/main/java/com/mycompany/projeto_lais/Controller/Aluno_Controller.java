@@ -12,7 +12,7 @@ import static com.mycompany.projeto_lais.Model.Atividade_Model_.unidade;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
 import com.mycompany.projeto_lais.Model.Dao.Atividade_dao;
-import com.mycompany.projeto_lais.Model.Dao.Frequencia_dao;
+import com.mycompany.projeto_lais.Model.Dao.Aluno_Aula_dao;
 import com.mycompany.projeto_lais.Model.Dao.Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_dao;
@@ -52,7 +52,7 @@ public class Aluno_Controller {
     private List<Frequencia_Model> lista_f;
     private List<Atividade_Model> lista_t;
     private List<Aluno_Model> lista_a;
-    private Frequencia_dao dao_aa;
+    private Aluno_Aula_dao dao_aa;
     private Atividade_dao dao_t;
     private double nota1;
     private double nota2;
@@ -74,7 +74,7 @@ public class Aluno_Controller {
         dao_at = new Aluno_Atividade_dao();
         dao_tm = new Turma_Materia_dao();
         lista_At = new ArrayList<>();
-        dao_aa = new Frequencia_dao ();
+        dao_aa = new Aluno_Aula_dao ();
         faltas = new int[2];
         this.view = view;
         this.turma = turma;
@@ -155,14 +155,16 @@ public class Aluno_Controller {
     }
 
     public void editar(int s) {
-        Aluno_Model aluno = dao.findByTurma(turma).get(s);
+        atualizar();
+        Aluno_Model aluno = lista_a.get(s);
         Cadastro_Aluno m = new Cadastro_Aluno(null, true, turmamateria, aluno);
         m.setVisible(true);
         atualizar();
     }
 
     public void excluir(int s) {
-        Aluno_Model aluno = dao.findByTurma(turma).get(s);
+        atualizar();
+        Aluno_Model aluno = lista_a.get(s);
         Cadastro_Aluno m = new Cadastro_Aluno(null, true, turmamateria, aluno, "");
         m.setVisible(true);
         atualizar();
@@ -277,6 +279,7 @@ public class Aluno_Controller {
         if (lista_t.size()!=0 &&  lista_t.get(0).getCalculo().equals("Maior Nota"))
             valor_restante = valor_restante-10;
          valor_total = 0;
+         divisor = 1;
         for (Atividade_Model atvd : lista_t) {
             switch (atvd.getCalculo()) {
                 case "Soma simples":
@@ -307,9 +310,9 @@ public class Aluno_Controller {
                     break;
             }
         }
-        System.out.println(" valor total " + (valor_total) / divisor);
+        System.out.println("Aluno: valor total " + (valor_total) / divisor);
         valor_restante = valor_restante - (valor_total) / divisor;
-        System.out.println("Valor restante" + valor_restante);}
+        System.out.println("Aluno: Valor restante" + valor_restante);}
         if (valor_restante==0.0){
             termino=true;
             System.out.println("termino "+termino);

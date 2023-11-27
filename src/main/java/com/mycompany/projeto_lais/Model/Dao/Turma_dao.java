@@ -119,8 +119,9 @@ public class Turma_dao {
         }
     }
     public boolean delete(Turma_Model turma) {
-       try {
-             em.getTransaction().begin();
+       
+        try {
+        em.getTransaction().begin();
         em.remove(turma);
         em.getTransaction().commit();
         return true;
@@ -147,4 +148,7 @@ public Turma_Model findbyId(int id){
         return mm;
     }
     
-    }}
+    }
+
+
+}
