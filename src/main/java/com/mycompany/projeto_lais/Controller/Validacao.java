@@ -23,19 +23,12 @@ public class Validacao extends PlainDocument {
     }
     
     public void somentenumero(java.awt.event.KeyEvent evt) {
-        if (evt.getKeyChar()+""=="."){
-        contador++;
-        if (contador<1){
+
             String caracteres = "0123456789.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
-            
-        } 
-        }
-        else {
             evt.consume();
-        }
-        }
-        }
+       
+        }}
     
       public void insertString(int ofs, String str, AttributeSet a) throws BadLocationException{
           if ((getLength() + str.length())<= limite ) {

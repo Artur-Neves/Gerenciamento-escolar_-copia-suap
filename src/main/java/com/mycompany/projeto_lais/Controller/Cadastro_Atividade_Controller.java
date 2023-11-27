@@ -86,7 +86,10 @@ public class Cadastro_Atividade_Controller {
     }
 
     public void iniciar() {
-
+view.getjTextField1().setDocument( new Validacao(5));
+            view.getjTextField2().setDocument( new Validacao(5));
+             view.getjTextField3().setDocument( new Validacao(5));
+             view.getjTextArea2().setDocument( new Validacao(1000));
         view.getjComboBox3().removeAll();
         for (Calculos_Enum formato : Calculos_Enum.values()) {
             view.getjComboBox3().addItem(formato.toString());
@@ -96,7 +99,9 @@ public class Cadastro_Atividade_Controller {
             view.getjComboBox4().addItem(unidade.toString());
         }
 
-        if (!view.getjButton3().getText().equals("Salvar")) {
+        if (!view.getjButton3().getText().equals("Salvar")) { 
+            System.out.println("valor: "+model.getValor());
+            System.out.println("descricao "+ model.getDescricao());
             view.getjComboBox3().setSelectedItem(model.getCalculo());
             view.getjTextField2().setText("" + model.getDivisor());
             view.getjComboBox4().setSelectedItem(model.getUnidade());
@@ -108,10 +113,7 @@ public class Cadastro_Atividade_Controller {
         } else {
             atualizar();
         }
-           view.getjTextField1().setDocument( new Validacao(5));
-            view.getjTextField1().setDocument( new Validacao(5));
-             view.getjTextField1().setDocument( new Validacao(5));
-             view.getjTextArea2().setDocument( new Validacao(1000));
+           
 
     }
 
@@ -188,15 +190,17 @@ public class Cadastro_Atividade_Controller {
                 divisor = 1;
             }
             lista = dao.findByTurmaMateriaUnidade(turmamateria, unidade);
-        } catch (Exception e) {
-            System.out.println("Problema no atualizar_Dados: " + e.getMessage());
-        }
+       
         if (view.getjTextField3().getText().trim().isEmpty() || view.getjComboBox3().getSelectedIndex() != 2) {
             // 
             peso = 0;
         } else {
             peso = Double.parseDouble(view.getjTextField3().getText());
 
+        }
+        erro = false;
+         } catch (NumberFormatException e) {
+           erro=true;
         }
         
 
@@ -207,7 +211,9 @@ public class Cadastro_Atividade_Controller {
         confirmacao = true;
         double comparar;
         
-            if (view.getjDateChooser1().getDate()!=null){
+        if (!erro){
+            if (view.getjDateChooser1().getDate()!=null){  
+                
         if (formato.equals("Média Ponderada")) {
             comparar = peso;
         } else {
@@ -216,17 +222,14 @@ public class Cadastro_Atividade_Controller {
 
         if (view.getjButton3().getText().equals("Salvar")) {
             model = new Atividade_Model(formato, valor, data, descricao, unidade, turmamateria, divisor, peso);
- if (valor_Maximo() >= comparar) {
-            if (lista.size() == 0) {
+        if (valor_Maximo() >= comparar)   {
+        if (lista.size() == 0) {
                 Menssagem_De_Confirmacao mc = new Menssagem_De_Confirmacao(null, true, "Uma vez que você escolhar um método de avaliação para",
                         "essa unidade, não será mais possível mudar esse método!", "Atenção");
                 mc.setVisible(true);
                 confirmacao = mc.retornar();
             }
             if (confirmacao) {
-
-               
-
                     System.out.println(peso);
                     if (dao_aluno.findByTurma(turmamateria.getTurma()) != null) {
                         for (Aluno_Model aluno_model : dao_aluno.findByTurma(turmamateria.getTurma())) {
@@ -292,7 +295,11 @@ public class Cadastro_Atividade_Controller {
             else{
                 m = new Menssagem_De_Confirmacao(null, true, "Insira uma data válida", "", "Atenção");
                     m.setVisible(true);
-            }
+            }}
+        else {
+             Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Digite um valor válido nos campos", "","Atenção");
+        m.setVisible(true);
+        }
         }
         
     
@@ -354,7 +361,7 @@ public class Cadastro_Atividade_Controller {
     
 
     public void mudarcor() {
-
+try{
         if ((valor_Maximo() + model.getValor()) < valor) {
             view.getjTextField1().setForeground(Color.red);
         } else {
@@ -366,4 +373,8 @@ public class Cadastro_Atividade_Controller {
             view.getjTextField3().setForeground(Color.green);
         }
     }
+    catch(Exception e){
+        
+    }
+}
 }

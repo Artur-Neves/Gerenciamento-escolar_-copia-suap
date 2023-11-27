@@ -119,7 +119,7 @@ public class Aluno_Controller {
             faltas = faltas(a);
             frequencia = 100-((faltas[0]*100)/faltas[1]);
             media = (nota1+nota2+nota3)/3;
-            if (dao_at.findByAlunoUnidade(a, "Recuperação", turmamateria)!=null)
+            if (dao_at.findByAlunoUnidade(a, "Recuperação", turmamateria).size()!=0)
             recuperacao = dao_at.findByAlunoUnidade(a, "Recuperação", turmamateria).get(0).getValor_recebido();
              a.setSituacao(passarOrNot(a, media, recuperacao));
              dao.update(a);
@@ -274,7 +274,7 @@ public class Aluno_Controller {
         
          for (int i=1; i<4; i++){
         lista_t = dao_t.findByTurmaMateriaUnidade(turmamateria, "Unidade "+i);
-        if (lista_t.get(0).getCalculo().equals("Maior Nota"))
+        if (lista_t.size()!=0 &&  lista_t.get(0).getCalculo().equals("Maior Nota"))
             valor_restante = valor_restante-10;
          valor_total = 0;
         for (Atividade_Model atvd : lista_t) {

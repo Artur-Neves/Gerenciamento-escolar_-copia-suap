@@ -163,7 +163,7 @@ public class Cadastro_Aula_Controller {
             }
         }}
         else{
-                Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true , "Coloque uma quantidade válida de aulas", unidade, "Atenção");
+                Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true , "Coloque uma quantidade válida de aulas", "", "Atenção");
                 m.setVisible(true);
                 }
         
