@@ -385,7 +385,7 @@ private Materia_Controller c = new Materia_Controller (this);
         jLabel0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel0.setText("Disciplinas");
         getContentPane().add(jLabel0);
-        jLabel0.setBounds(400, 0, 718, 59);
+        jLabel0.setBounds(4, 0, 1870, 59);
 
         jMenu1.setText("Operações");
 
@@ -411,7 +411,7 @@ private Materia_Controller c = new Materia_Controller (this);
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(1510, 735));
+        setSize(new java.awt.Dimension(1870, 892));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

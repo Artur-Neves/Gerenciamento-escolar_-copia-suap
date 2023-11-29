@@ -65,7 +65,7 @@ public class Atribuir_Nota_Controller {
         dao_Turma = new Turma_dao(); 
         dao_materia = new Materia_dao();
         this.turmamateria = turmamateria;
-        listAluno_Atividade =  dao.findByTurmaMateria(turmamateria);
+        listAluno_Atividade =  dao.findByTurmaMateria(turmamateria, "");
         dm = new DefaultTableModel();
         nota2=0;
         nota3=0;
@@ -116,11 +116,12 @@ public class Atribuir_Nota_Controller {
                         }   
                         else {
                             Toolkit.getDefaultToolkit().beep();
-                                view.imprimirNaTela("valor invalido", "Erro 100");
+                             Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "valor invalido", "", "Atenção", 0);
+                                m.setVisible(true);
                                 validacao=false;
                     }}
                         else{
-                            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(view, validacao, "O valor máximo da atividade "+atividadec.getDescricao(), "é "+atividadec.getValor()+ "valor que quer ser mudado: "+a, "Atenção");
+                            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(view, validacao, "O valor máximo da atividade "+atividadec.getDescricao(), "é "+atividadec.getValor()+ "valor que quer ser mudado: "+a, "Atenção", 0);
                             m.setVisible(true);
                             validacao=false;
                             break;
@@ -133,7 +134,8 @@ public class Atribuir_Nota_Controller {
                 else{
                     if (depois.get(i).coluna!=0 && depois.get(i).valor!=null){
                         Toolkit.getDefaultToolkit().beep();
-                   view.imprimirNaTela("A nota do aluno(a) '"+alunol.getNome()+"' da atividade '"+atividadec.getDescricao()+"' não é do tipo inteiro", "Error Valor inválido");
+                         Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(view, validacao, "A nota do aluno(a) '"+alunol.getNome()+"' da atividade '", atividadec.getDescricao()+"' não é do tipo inteiro", "Atenção", 0);
+                            m.setVisible(true);
                 validacao=false;
                  }
                 }
@@ -159,7 +161,7 @@ public class Atribuir_Nota_Controller {
          dm = new DefaultTableModel();
        
          String unidade = ""+view.getjComboBox2().getSelectedItem();
-         listAluno_Atividade =  dao.findByTurmaMateria(turmamateria);
+         listAluno_Atividade =  dao.findByTurmaMateria(turmamateria, unidade);
          listAluno = dao_aluno.findByTurma(turmamateria.getTurma());
          System.out.println("unidade: "+unidade);
          listAtividade = dao_atvd.findByTurmaMateriaUnidade(turmamateria, unidade);

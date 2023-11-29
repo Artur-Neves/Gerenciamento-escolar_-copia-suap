@@ -96,6 +96,11 @@ public class Turma_Model {
         return materia;
     }
 
+    public void setMateria(List<Materia_Model> materia) {
+        this.materia = materia;
+    }
+    
+
     public List<Aluno_Model> getAlunos() {
         return alunos;
     }
@@ -105,6 +110,7 @@ public class Turma_Model {
     }
     
    public void addMateria(Materia_Model materia){
+       this.materia.remove(materia);
        this.materia.add(materia);
        materia.getTurma().remove(this);
    }

@@ -5,7 +5,9 @@
 package com.mycompany.projeto_lais.Model.Dao;
 
 import com.mycompany.projeto_lais.Model.Aula_Model;
+import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
+import com.mycompany.projeto_lais.Model.Turma_Model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -146,8 +148,50 @@ public List<Aula_Model> findDataByTurmaMateria(Turma_Materia_Model turmamateria,
         }
     }
 
-    public Iterable<Aula_Model> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  
+    public void deleteforTurma(Turma_Model turma) {
+         String query = "delete from aula a where a.turmamateria.turma= :turma";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("turma", turma).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deleteforTurmaAndMateria(Turma_Model turma, Materia_Model materia) {
+         String query = "delete from aula a where a.turmamateria.turma= :turma and a.turmamateria.materia= :materia";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("turma", turma).setParameter("materia", materia).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deleteforMateria(Materia_Model materia) {
+        String query = "delete from aula a where a.turmamateria.materia= :materia";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("materia", materia).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
     }
 
     

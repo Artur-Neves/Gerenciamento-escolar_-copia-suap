@@ -147,7 +147,7 @@ view.getjTable1().setModel(dm);
         view.hide();}
         else{
             // apenas um botão
-            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Esta aba somente poderá acessar quando a soma dos", "valores máximos das avaliações de cada unidade for 10.", "Atenção");
+            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Esta aba somente poderá acessar quando a soma dos", "valores máximos das avaliações de cada unidade for 10.", "Atenção", 0);
             m.setVisible(true);
         }
     }

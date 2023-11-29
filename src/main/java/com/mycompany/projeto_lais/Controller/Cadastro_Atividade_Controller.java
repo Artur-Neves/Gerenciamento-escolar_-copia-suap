@@ -240,7 +240,7 @@ view.getjTextField1().setDocument( new Validacao(5));
                     System.out.println(peso);
                     if (dao_aluno.findByTurma(turmamateria.getTurma()) != null) {
                         for (Aluno_Model aluno_model : dao_aluno.findByTurma(turmamateria.getTurma())) {
-                            model.addAluno(dao_aluno.findByNome(aluno_model.getNome()));
+                            model.addAluno(aluno_model);
 
                         }
                     }
@@ -300,11 +300,11 @@ view.getjTextField1().setDocument( new Validacao(5));
         }
         }
             else{
-                m = new Menssagem_De_Confirmacao(null, true, "Insira uma data válida", "", "Atenção");
+                m = new Menssagem_De_Confirmacao(null, true, "Insira uma data válida", "", "Atenção", 0);
                     m.setVisible(true);
             }}
         else {
-             Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Digite um valor válido nos campos", "","Atenção");
+             Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Digite um valor válido nos campos", "","Atenção", 0);
         m.setVisible(true);
         }
         }

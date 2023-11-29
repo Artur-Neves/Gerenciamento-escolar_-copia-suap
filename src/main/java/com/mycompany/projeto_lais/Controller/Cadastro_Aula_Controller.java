@@ -114,7 +114,7 @@ public class Cadastro_Aula_Controller {
             model = new Aula_Model(unidade, data, quantidade, conteudo, obs, formato, turmamateria);
             if (dao_aluno.findByTurma(turmamateria.getTurma()) != null) {
                 for (Aluno_Model aluno_model : dao_aluno.findByTurma(turmamateria.getTurma())) {
-                    model.addAluno(dao_aluno.findByNome(aluno_model.getNome()));
+                    model.addAluno(aluno_model);
 
                 }
             }
@@ -164,7 +164,7 @@ public class Cadastro_Aula_Controller {
             }
         }}
         else{
-                Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true , "Coloque uma quantidade válida de aulas", "", "Atenção");
+                Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true , "Coloque uma quantidade válida de aulas", "", "Atenção", 0);
                 m.setVisible(true);
                 }
         

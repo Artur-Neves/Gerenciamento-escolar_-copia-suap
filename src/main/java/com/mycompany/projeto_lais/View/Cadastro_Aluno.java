@@ -207,10 +207,6 @@ public Cadastro_Aluno(java.awt.Frame parent, boolean modal, Turma_Materia_Model 
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -218,6 +214,10 @@ public Cadastro_Aluno(java.awt.Frame parent, boolean modal, Turma_Materia_Model 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
                 c.inserir();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    c.atualizarTurma();        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
    
 
@@ -285,12 +285,10 @@ public Cadastro_Aluno(java.awt.Frame parent, boolean modal, Turma_Materia_Model 
     public JPanel getjPanel2() {
         return jPanel2;
     }
-
+   
     public void setjPanel2(JPanel jPanel2) {
         this.jPanel2 = jPanel2;
     }
-
-    
     
 
     

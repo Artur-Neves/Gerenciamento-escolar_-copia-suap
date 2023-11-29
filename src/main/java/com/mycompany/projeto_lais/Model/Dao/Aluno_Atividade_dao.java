@@ -7,6 +7,7 @@ package com.mycompany.projeto_lais.Model.Dao;
 import com.mycompany.projeto_lais.Model.Aluno_Atividade_Model;
 import com.mycompany.projeto_lais.Model.Aluno_Model;
 import com.mycompany.projeto_lais.Model.Atividade_Model;
+import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import java.util.ArrayList;
@@ -20,8 +21,12 @@ import javax.persistence.EntityManager;
 public class Aluno_Atividade_dao {
 EntityManager em;
 
-public List<Aluno_Atividade_Model> findByTurmaMateria(Turma_Materia_Model turmamateria){
-    String query = "select a from atividade_aluno a where a.atividade.turmamateria = :turmamateria and a.atividade.unidade != 'Recuperação' order by a.atividade.data desc";
+public List<Aluno_Atividade_Model> findByTurmaMateria(Turma_Materia_Model turmamateria, String unidade){
+    String query;
+    if (unidade.trim().isEmpty())
+     query = "select a from atividade_aluno a where a.atividade.turmamateria = :turmamateria and a.atividade.unidade != 'Recuperação' order by a.atividade.data desc";
+    else
+    query = "select a from atividade_aluno a where a.atividade.turmamateria = :turmamateria and a.atividade.unidade != 'Recuperação' and a.atividade.unidade= '"+unidade+"' order by a.atividade.data desc";
     List<Aluno_Atividade_Model> aluno_atividade = new ArrayList<>();
     try {
         em = new Entity_Manager().ent();
@@ -131,11 +136,56 @@ public Aluno_Atividade_Model findByAlunoAtividade(Aluno_Model aluno, Atividade_M
     }
 
      public void deleteforTurma(Turma_Model turma) {
-       String query = "delete from aluno_atividade a where a.turmamateria.turma= :turma";
+       String query = "delete from atividade_aluno a where a.atividade.turmamateria.turma= :turma";
         try {
             em = new Entity_Manager().ent();
             em.getTransaction().begin();
             em.createQuery(query).setParameter("turma", turma).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deleteforTurmaAndMateria(Turma_Model atividade, Materia_Model materia) {
+         String query = "delete from atividade_aluno a where a.atividade.turmamateria.turma= :turma and a.atividade.turmamateria.materia= :materia";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("turma", atividade).setParameter("materia", materia).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deleteforMateria(Materia_Model materia) {
+         String query = "delete from atividade_aluno a where  a.atividade.turmamateria.materia= :materia";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("materia", materia).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deleteforAluno(Aluno_Model aluno) {
+          String query = "delete from atividade_aluno a where  a.aluno= :aluno";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("aluno", aluno).executeUpdate();
             em.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("deleteforTurma "+e.getMessage());

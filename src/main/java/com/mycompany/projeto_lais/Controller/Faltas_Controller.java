@@ -15,6 +15,7 @@ import com.mycompany.projeto_lais.View.Aluno;
 import com.mycompany.projeto_lais.View.Atividade;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Faltas;
+import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,14 +166,17 @@ antes =valorcelulas();
                             }
                             else {
                                 Toolkit.getDefaultToolkit().beep();
-                                view.imprimirNaTela("valor invalido", "Erro 100");
+                                Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "A falta do aluno(a) '"+alunoc.getNome()+"' do dia '", formato.format(aulac.getData())+"' ultrapassou a quantidade das aulas", "Atenção", 0);
+                                m.setVisible(true);
                                 validade=false;
                                  
                             }
                         }
                         else{
                             Toolkit.getDefaultToolkit().beep();
-                            view.imprimirNaTela("A falta do aluno(a) '"+alunoc.getNome()+"' do dia '"+formato.format(aulac.getData())+"' ultrapassou a quantidade das aulas", "Error Valor inválido");
+                            Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Valor inválido", "", "Atenção", 0);
+                                m.setVisible(true);
+                            
                         validade = false;
                                                  }
                         
@@ -184,7 +188,10 @@ antes =valorcelulas();
                 else{
                     if (depois.get(i).coluna!=0){
                         Toolkit.getDefaultToolkit().beep();
-                   view.imprimirNaTela("A falta do aluno(a) '"+alunoc.getNome()+"' do dia '"+formato.format(aulac.getData())+"' não é do tipo inteiro", "Error Valor inválido");
+                          Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "A falta do aluno(a) '"+alunoc.getNome()+"' do dia '", formato.format(aulac.getData())+"' não é do tipo inteiro", "Atenção", 0);
+                                m.setVisible(true);
+                            
+                  
                 validade=false;
                  }
                 }

@@ -53,23 +53,23 @@ public class Aluno_dao {
         }
     }
 
-    public Aluno_Model findByNome(String nome) {
-        String query = "select a from aluno a where a.nome = :nome";
-        Aluno_Model a = new Aluno_Model();
-        try {
-            em = new Entity_Manager().ent();
-            em.getTransaction().begin();
-            a = (Aluno_Model) em.createQuery(query).setParameter("nome", nome).getSingleResult();
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            System.out.println("findByNome aluno" + e);
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-            return a;
-        }
-    }
+//    public Aluno_Model findByNome(String nome) {
+//        String query = "select a from aluno a where a.nome = :nome";
+//        Aluno_Model a = new Aluno_Model();
+//        try {
+//            em = new Entity_Manager().ent();
+//            em.getTransaction().begin();
+//            a = (Aluno_Model) em.createQuery(query).setParameter("nome", nome).getSingleResult();
+//            em.getTransaction().commit();
+//
+//        } catch (Exception e) {
+//            System.out.println("findByNome aluno" + e);
+//            em.getTransaction().rollback();
+//        } finally {
+//            em.close();
+//            return a;
+//        }
+//    }
 
     public boolean editar(Aluno_Model aluno) {
         try {
@@ -92,6 +92,7 @@ public class Aluno_dao {
         try {
             em = new Entity_Manager().ent();
             em.getTransaction().begin();
+            em.merge(aluno);
             em.remove(aluno);
             em.getTransaction().commit();
             return true;
@@ -164,6 +165,39 @@ public class Aluno_dao {
 
         } catch (Exception e) {
             System.out.println("findByNome aluno" + e);
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            return a;
+        }
+    }
+
+    public void deleteforTurma(Turma_Model turma) {
+     String query = "delete from aluno a where a.turma= :turma";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            em.createQuery(query).setParameter("turma", turma).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Aluno_Model findById(int idAluno) {
+        String query = "select a from aluno a where a.id :id order by a.nome ";
+        Aluno_Model a = null;
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            a = (Aluno_Model) em.createQuery(query).setParameter("id", idAluno);
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            System.out.println("findByTurma aluno" + e);
             em.getTransaction().rollback();
         } finally {
             em.close();

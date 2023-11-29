@@ -21,12 +21,14 @@ public class Turma_dao {
        List<Turma_Model> list= null;
        String query = "select t from Turma_Model t";
         try {
+            em = new Entity_Manager().ent();
             em.getTransaction().begin();
            list = em.createQuery(query).getResultList();
             em.getTransaction().commit();
         } catch (Exception e) {
             //em.getTransaction().rollback();
         } finally {
+            em.close();
             return list;
         }
     }
@@ -36,6 +38,7 @@ public class Turma_dao {
        System.out.println("------------------"+id+"----------");
        String query = "select t from Turma_Model t join t.materia m where m.idMatricula = :id";
         try {
+            em = new Entity_Manager().ent();
             em.getTransaction().begin();
            list = em.createQuery(query).setParameter("id", id).getResultList();
             em.getTransaction().commit();
@@ -44,11 +47,13 @@ public class Turma_dao {
             System.out.println("selectByMateria "+ e);
             em.getTransaction().rollback();
         } finally {
+            em.close();
             return list;
         }
     }
     public boolean insert(Turma_Model turma){
         try {
+            em = new Entity_Manager().ent();
             em.getTransaction().begin();
             em.persist(turma);
             em.getTransaction().commit();
@@ -58,12 +63,16 @@ public class Turma_dao {
             
             return false;
         }   
+        finally{
+            em.close();
+        }
     }
 
     public Turma_Model findByName(String nome){
         Turma_Model mm = null;
         String query="select t from Turma_Model t where t.nome= :nome";
         try {
+            em = new Entity_Manager().ent();
             em.getTransaction().begin();
         mm=  (Turma_Model) em.createQuery(query).setParameter("nome", nome).getSingleResult();
         
@@ -72,12 +81,14 @@ public class Turma_dao {
             em.getTransaction().rollback();
             System.err.println("findByname "+e);
         } finally {
+            em.close();
         return mm;
         }
 }
 
     public boolean deleteMateria(Turma_Model turma, Materia_Model materia) {
         try {
+            em = new Entity_Manager().ent();
             turma.getMateria().remove(materia);
             materia.getTurma().remove(turma);
             em.getTransaction().begin();
@@ -91,9 +102,13 @@ public class Turma_dao {
             em.getTransaction().rollback();
             return false;
         }   
+        finally{
+            em.close();
+        }
     }
     public boolean updateMateria(Turma_Model turma, Materia_Model materia) {
         try {
+            em = new Entity_Manager().ent();
             turma.getMateria().add(materia);
             em.getTransaction().begin();
             em.merge(turma);
@@ -104,11 +119,15 @@ public class Turma_dao {
             em.getTransaction().rollback();
             return false;
         }   
+        finally{
+            em.close();
+        }
     }
 
     public boolean editar(Turma_Model t) {
        try {
-             em.getTransaction().begin();
+           em = new Entity_Manager().ent();
+        em.getTransaction().begin();
         em.merge(t);
         em.getTransaction().commit();
         return true;
@@ -117,10 +136,14 @@ public class Turma_dao {
             em.getTransaction().rollback();
            return false;
         }
+       finally{
+           em.close();
+       }
     }
     public boolean delete(Turma_Model turma) {
        
         try {
+            em = new Entity_Manager().ent();
         em.getTransaction().begin();
         em.remove(turma);
         em.getTransaction().commit();
@@ -130,11 +153,15 @@ public class Turma_dao {
             em.getTransaction().rollback();
            return false;
         }
+        finally{
+            em.close();
+        }
     }
 public Turma_Model findbyId(int id){
        
         Turma_Model mm=null;
         try {
+            em = new Entity_Manager().ent();
             em.getTransaction().begin();
             mm = em.find(Turma_Model.class, id);
             em.getTransaction().commit();
@@ -145,6 +172,8 @@ public Turma_Model findbyId(int id){
         }
         System.err.println("findByid" + e);
     } finally {
+            em.close();
+            
         return mm;
     }
     

@@ -168,7 +168,7 @@ Turma_Controller c;
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Turmas");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1524, 134);
+        jLabel1.setBounds(0, 0, 1860, 134);
 
         btn1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn1.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -301,7 +301,7 @@ Turma_Controller c;
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(1538, 810));
+        setSize(new java.awt.Dimension(1879, 871));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

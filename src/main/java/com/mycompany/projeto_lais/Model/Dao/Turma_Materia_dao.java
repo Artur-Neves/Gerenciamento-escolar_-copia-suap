@@ -32,4 +32,38 @@ public class Turma_Materia_dao {
        return mm;
        } 
      }
+
+    public void deleteforTurmaAndMteria(Turma_Model turma, Materia_Model materia) {
+         String query = "delete from Turma_Materia_Model a where a.turma= :turma and a.materia= :materia";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            turma= em.merge(turma);
+            materia = em.merge(materia);
+            em.createQuery(query).setParameter("turma", turma).setParameter("materia", materia).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deleteforMateria(Materia_Model materia) {
+      String query = "delete from Turma_Materia_Model a where a.materia= :materia";
+        try {
+            em = new Entity_Manager().ent();
+            em.getTransaction().begin();
+            materia = em.merge(materia);
+            em.createQuery(query).setParameter("materia", materia).executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("deleteforTurma "+e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+    
 }

@@ -4,7 +4,13 @@
  */
 package com.mycompany.projeto_lais.Controller;
 
+import com.mycompany.projeto_lais.Model.Dao.Aluno_Atividade_dao;
+import com.mycompany.projeto_lais.Model.Dao.Aluno_Aula_dao;
+import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
+import com.mycompany.projeto_lais.Model.Dao.Atividade_dao;
+import com.mycompany.projeto_lais.Model.Dao.Aula_dao;
 import com.mycompany.projeto_lais.Model.Dao.Materia_dao;
+import com.mycompany.projeto_lais.Model.Dao.Turma_Materia_dao;
 import com.mycompany.projeto_lais.Model.Dao.Turma_dao;
 import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
@@ -22,6 +28,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -39,18 +46,39 @@ public class Cadastro_Materia_Controller {
     private FileInputStream fis;
     // váriavel global para armazenar o tamanho das imagens
     private long tamanho;
-    private Turma_dao dao_turma = new Turma_dao();
-    private List<Turma_Model> turma = new ArrayList<>();
+    private Turma_dao dao_turma;
+    private List<Turma_Model> turma ;
+    private List<Turma_Model> turma_antes ;
+    private List<Turma_Model> excluidos;
     private Validacao validacao;
+    private Turma_Materia_dao dao_tm;
+    private Aluno_Atividade_dao dao_at;
+    private Aluno_Aula_dao dao_al;
+    private Aluno_dao dao_a;
+    private Aula_dao dao_aula;
+    private Atividade_dao dao_t;
+    private boolean editar;
     
 
     public Cadastro_Materia_Controller(Cadastro_Materia view) {
         this.view = view;
+        this.dao_al = new Aluno_Aula_dao();
+        this.dao_at = new Aluno_Atividade_dao();
+        this.dao_aula = new Aula_dao();
+        this.dao_t = new Atividade_dao();
+        this.dao_a = new Aluno_dao();
+        this.dao_tm = new Turma_Materia_dao();
+        dao_turma = new Turma_dao();
+        turma = new ArrayList<>();
+        turma_antes = new ArrayList<>();
+        excluidos = new ArrayList<>();
+        materia = new Materia_Model();
     }
 
     
 
     public void inserir() {
+        editar=true;
         if(!view.getjTextField1().getText().trim().isEmpty()){
         if (view.getjButton1().getText().equals("Salvar")) {
             if (imageBytes != null) {
@@ -81,39 +109,68 @@ public class Cadastro_Materia_Controller {
             }
         } else if(view.getjButton1().getText().equals("Editar")) {
             materia.getTurma().clear();
-            if (imageBytes != null) {
-               
+            if (imageBytes != null){ materia.setImagem(imageBytes);}
+            if (turma_antes!=turma){
+                if ( turma_antes.size()!=0 ){
+                            if (turma.size()!=0){
+                        for (int i= 0; i<turma_antes.size(); i++){
+                            excluidos.add(turma_antes.get(i));
+                            for (int a=0; a<turma.size();a++){
+                                if(turma_antes.get(i)==turma.get(a)){
+                                    excluidos.remove(turma_antes.get(i));
+                                }
+                            }
+                        }}
+                        else {
+                            excluidos =turma_antes;
+                        }}
+                 if (excluidos.size()!=0){
+                        Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Ao desvincular uma turma de uma materia: atividades, notas", ", faltas e aulas serão apagados permanentemente", "Atenção");
+                    m.setVisible(true);
+                    if (m.retornar()) {
+                        m = new Menssagem_De_Confirmacao(null, true, "Tem certeza que deseja desvincular a materia: "+materia.getNome(), " da materia " + excluidos.get(0).getNome() + "?", "Este é o ultimo aviso!");
+                        m.setVisible(true);
+                        if (m.retornar()) {
+                        for (Turma_Model turma : excluidos){
+                            System.out.println("entrando aqui");
+                            deleteMateriaAndTM(turma,materia);
+                        }
+                        
+                       }
+                        else {
+                        editar=false;}
+                    }
+                    else{
+                        editar=false;
+                    }}}
+                if (editar){
                 materia.setTurma(turma);
                 materia.setNome(view.getjTextField1().getText());
-                materia.setImagem(imageBytes);
                 if (dao.editar(materia)) {
                     view.iprimir_Na_Tela("Edição realizada com sucesso!");
                     view.hide();
                 }
-            } else {
-                materia.setTurma(turma);
-                materia.setNome(view.getjTextField1().getText());
-                if (dao.editar(materia)) {
-                    view.iprimir_Na_Tela("Edição realizada com sucesso!");
-                    view.hide();
                 }
+                
                 else{
                     Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Já existe uma materia com esse nome!", "", "Atenção", 0);
                    m.setVisible(true);
-                }
+                
 
             }
         }
         else{
-        if (turma.size() !=0) {
-            for (Turma_Model t : dao_turma.selectByMateria(materia.getIdMatricula())) {
-                    t.removeMateria(materia);
-                    dao_turma.editar(t);
-                }}
-            if (dao.delete(materia)){
+         Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Ao excluir esta Matéria as atividades Aulas e notas", " serão apagados permanentemente", "Atenção");
+                    m.setVisible(true);
+                    if (m.retornar()) {
+                        m = new Menssagem_De_Confirmacao(null, true, "Tem certeza que quer apagar todos os dados", " da Materia: " + materia.getNome() + "?", "Este é o ultimo aviso!");
+                        m.setVisible(true);
+                        if (m.retornar()) {
+            if (deleteMateria(materia)){
                 view.iprimir_Na_Tela("Exclusão realizada com sucesso!");
                     view.hide();
-            }
+            }}
+                    }
             
         }}
         else{
@@ -133,22 +190,44 @@ public class Cadastro_Materia_Controller {
                     ImageIcon imagemicon = new ImageIcon(materia.getImagem());
                     Image imagem = imagemicon.getImage().getScaledInstance(600, 300, Image.SCALE_REPLICATE);
                     view.getLabelImagem().setIcon(new ImageIcon(imagem));
+                    view.getjButton6().setVisible(true);
                 } else {
                     File url = new File("C:\\Users\\Artur\\Documents\\NetBeansProjects\\Projeto_Lais\\src\\main\\java\\com\\mycompany\\projeto_lais\\View\\img\\camera-dslr.png");
                     Image imagem = ImageIO.read(url);
                     view.getLabelImagem().setIcon(new ImageIcon(imagem));
+                    view.getjButton6().setVisible(false);
                 }
             } catch (IOException e) {
                 System.out.println("atualizar " + e.getMessage());
             }
             DefaultListModel n = new DefaultListModel();
             turma.clear();
+            turma_antes.clear();
             for (Turma_Model t : dao_turma.selectByMateria(materia.getIdMatricula())) {
                 turma.add(t);
                 n.addElement(t.getNome());
+                turma_antes.add(t);
             }
             view.getjList1().removeAll();
             view.getjList1().setModel(n);
+        }
+        else{
+            
+            try {
+            if  (view.getLabelImagem()!=null){
+            File url = new File("C:\\Users\\Artur\\Documents\\NetBeansProjects\\Projeto_Lais\\src\\main\\java\\com\\mycompany\\projeto_lais\\View\\img\\camera-dslr.png");
+            Image imagem = ImageIO.read(url);
+            view.getjButton6().setVisible(false);
+            view.getLabelImagem().setIcon(new ImageIcon(imagem));
+                }
+                else{
+            view.getjButton6().setVisible(true);
+                }
+            } catch (Exception e) {
+            }
+
+ 
+            
         }
     }
     
@@ -182,12 +261,13 @@ public class Cadastro_Materia_Controller {
 
                 // Exibe a imagem
                 view.getLabelImagem().setIcon(new ImageIcon(bufferedImage));
+                view.getjButton6().setVisible(true);
                 view.getLabelImagem().updateUI();
-
                 System.out.println(formato);
                 imageBytes = convertImageToBytes(bufferedImage, formato);
             } catch (Exception e) {
                 System.err.println("Carregar foto " + e);
+                view.getjButton6().setVisible(false);
             }
         }
     }
@@ -221,7 +301,7 @@ public class Cadastro_Materia_Controller {
             }
             view.getjPanel2().setVisible(true);
         }
-        
+        atualizar();
 
     }
 
@@ -254,4 +334,31 @@ public class Cadastro_Materia_Controller {
         view.getjList1().removeAll();
         view.getjList1().setModel(n);
     }
+
+    public void retirarImagem() {
+        
+    materia.setImagem(null);
+    imageBytes = null;
+    atualizar();
+    }
+    
+    public void deleteMateriaAndTM(Turma_Model model, Materia_Model materia){
+     dao_al.deleteforTurmaAndMateria(model, materia);
+        dao_at.deleteforTurmaAndMateria(model, materia);
+        dao_aula.deleteforTurmaAndMateria(model, materia);
+        dao_t.deleteforTurmaAndMateria(model, materia);
+        dao_tm.deleteforTurmaAndMteria(model, materia);
+        
+        
+    }
+    
+    public boolean deleteMateria(Materia_Model materia){
+dao_al.deleteforMateria(materia);
+    dao_at.deleteforMateria(materia);
+    dao_aula.deleteforMateria(materia);
+    dao_t.deleteforMateria(materia);
+    dao_tm.deleteforMateria(materia);
+    return dao.delete(materia);
+}
+    
 }

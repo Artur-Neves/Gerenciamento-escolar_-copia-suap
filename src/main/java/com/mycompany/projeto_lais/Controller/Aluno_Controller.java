@@ -7,8 +7,6 @@ package com.mycompany.projeto_lais.Controller;
 import com.mycompany.projeto_lais.Model.Aluno_Atividade_Model;
 import com.mycompany.projeto_lais.Model.Aluno_Model;
 import com.mycompany.projeto_lais.Model.Atividade_Model;
-import static com.mycompany.projeto_lais.Model.Atividade_Model_.aluno;
-import static com.mycompany.projeto_lais.Model.Atividade_Model_.unidade;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_Atividade_dao;
 import com.mycompany.projeto_lais.Model.Dao.Aluno_dao;
 import com.mycompany.projeto_lais.Model.Dao.Atividade_dao;
@@ -83,6 +81,7 @@ public class Aluno_Controller {
         this. turmamateria = dao_tm.findbyturmamateria(turmamateria);
         this.dao_t = new Atividade_dao();
         this.lista_a = new ArrayList<>();
+        this.lista_t = new ArrayList<>();
          dm = (DefaultTableModel) view.getjTable1().getModel(); 
          System.out.println("vai por favor");
         
@@ -326,7 +325,7 @@ public class Aluno_Controller {
             situacao = "Aluno aprovado por nota";
         }
         else {
-            if (recuperacao>5){
+            if (recuperacao>=5){
                 situacao = "Aluno aprovado por recuperação";
             }
             else{
