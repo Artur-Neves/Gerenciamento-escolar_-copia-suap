@@ -65,6 +65,8 @@ private final Aluno_Controller c ;
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -144,6 +146,7 @@ private final Aluno_Controller c ;
         );
 
         jMenu3.setText("Operações");
+        jMenu3.setPreferredSize(new java.awt.Dimension(75, 22));
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setText("Adicionar");
@@ -184,6 +187,7 @@ private final Aluno_Controller c ;
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Aulas");
+        jMenu4.setPreferredSize(new java.awt.Dimension(75, 22));
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem8.setText("Entrar");
@@ -197,6 +201,7 @@ private final Aluno_Controller c ;
         jMenuBar2.add(jMenu4);
 
         jMenu5.setText("Atividades");
+        jMenu5.setPreferredSize(new java.awt.Dimension(75, 22));
 
         jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem9.setText("Entrar");
@@ -208,6 +213,19 @@ private final Aluno_Controller c ;
         jMenu5.add(jMenuItem9);
 
         jMenuBar2.add(jMenu5);
+
+        jMenu6.setText("Relatórios");
+
+        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem10.setText("Relatórios");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem10);
+
+        jMenuBar2.add(jMenu6);
 
         setJMenuBar(jMenuBar2);
 
@@ -381,6 +399,10 @@ if(jTable1.getSelectedRow()!=-1)
     c.enrtarAtividade();
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+      c.entrarRelatorio();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -424,9 +446,11 @@ if(jTable1.getSelectedRow()!=-1)
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;

@@ -301,7 +301,7 @@ Turma_Controller c;
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(1879, 871));
+        setSize(new java.awt.Dimension(1339, 607));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

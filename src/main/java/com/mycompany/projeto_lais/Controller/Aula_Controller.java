@@ -18,6 +18,7 @@ import com.mycompany.projeto_lais.View.Atividade;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Cadastro_Aula;
 import com.mycompany.projeto_lais.View.Faltas;
+import com.mycompany.projeto_lais.View.Relatorio;
 import com.mycompany.projeto_lais.View.Turma;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -146,5 +147,11 @@ view.getjTable1().setModel(dm);}
        Faltas falta = new Faltas(turmamateria);
         falta.setVisible(true);
         view.hide();
+    }
+
+     public void entrarRelatorio() {
+       Relatorio relatorio = new Relatorio(turmamateria);
+       relatorio.setVisible(true);
+       view.hide();
     }
 }

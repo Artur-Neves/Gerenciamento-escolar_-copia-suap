@@ -16,6 +16,7 @@ import com.mycompany.projeto_lais.View.Atividade;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Faltas;
 import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
+import com.mycompany.projeto_lais.View.Relatorio;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -139,6 +140,11 @@ antes =valorcelulas();
         atividade.setVisible(true);
         view.hide();
     }
+    public void entrarRelatorio() {
+       Relatorio relatorio = new Relatorio(modelTm);
+       relatorio.setVisible(true);
+       view.hide();
+    }
 
     public void salvar() {
         depois =  valorcelulas();
@@ -235,6 +241,8 @@ antes =valorcelulas();
        aula.setVisible(true);
        view.hide();
     }
+
+    
 
     private static class Localizacao {
 private int coluna;

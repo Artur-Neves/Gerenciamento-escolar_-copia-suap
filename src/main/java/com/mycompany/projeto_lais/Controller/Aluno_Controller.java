@@ -23,6 +23,7 @@ import com.mycompany.projeto_lais.View.Atividade;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Cadastro_Aluno;
 import com.mycompany.projeto_lais.View.Materia;
+import com.mycompany.projeto_lais.View.Relatorio;
 import com.mycompany.projeto_lais.View.Turma;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -354,4 +355,9 @@ public class Aluno_Controller {
             return quantidade_faltas;
     }
 
+     public void entrarRelatorio() {
+       Relatorio relatorio = new Relatorio(turmamateria);
+       relatorio.setVisible(true);
+       view.hide();
+    }
 }

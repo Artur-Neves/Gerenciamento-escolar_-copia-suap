@@ -10,6 +10,7 @@
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
         <exec.mainClass>com.mycompany.hibernatecurso.HibernateCurso</exec.mainClass>
+         <itext.version>8.0.2</itext.version>
     </properties>
       <build>
         <plugins>
@@ -116,6 +117,17 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE180</version>
         </dependency>
+         <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itext-core</artifactId>
+    <version>${itext.version}</version>
+    <type>pom</type>
+  </dependency>
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>bouncy-castle-adapter</artifactId>
+    <version>${itext.version}</version>
+  </dependency>
     </dependencies>
     <name>Projeto_Lais</name>
 </project>

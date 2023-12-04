@@ -20,6 +20,7 @@ import com.mycompany.projeto_lais.View.Atividade;
 import com.mycompany.projeto_lais.View.Atribuir_Nota;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
+import com.mycompany.projeto_lais.View.Relatorio;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Date;
@@ -322,6 +323,12 @@ public class Atribuir_Nota_Controller {
              view.getjTable1().setModel(dm);
     }
     antes = valorCelulas();}
+
+      public void entrarRelatorio() {
+       Relatorio relatorio = new Relatorio(turmamateria);
+       relatorio.setVisible(true);
+       view.hide();
+    }
 
      private static class Localizacao {
 private int coluna;

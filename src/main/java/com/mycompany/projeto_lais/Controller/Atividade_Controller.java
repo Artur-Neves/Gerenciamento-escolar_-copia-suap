@@ -19,6 +19,7 @@ import com.mycompany.projeto_lais.View.Atribuir_Nota;
 import com.mycompany.projeto_lais.View.Aula;
 import com.mycompany.projeto_lais.View.Cadastro_Atividade;
 import com.mycompany.projeto_lais.View.Menssagem_De_Confirmacao;
+import com.mycompany.projeto_lais.View.Relatorio;
 import com.mycompany.projeto_lais.View.Turma;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -201,6 +202,12 @@ view.getjTable1().setModel(dm);
         }
         return termino;
 
+    }
+
+     public void entrarRelatorio() {
+       Relatorio relatorio = new Relatorio(turmamateria);
+       relatorio.setVisible(true);
+       view.hide();
     }
 
     
