@@ -98,15 +98,21 @@ public class Materia_dao {
     }
 
     public boolean editar(Materia_Model materia) {
+      boolean bool= false;
         try {
+             em = new Entity_Manager().ent();
             em.getTransaction().begin();
             em.merge(materia);
             em.getTransaction().commit();
-            return true;
+            bool = true;
         } catch (Exception e) {
             System.err.println("insert " + e);
             em.getTransaction().rollback();
-            return false;
+            bool = false;
+        }
+         finally {
+            em.close();
+            return bool;
         }
 
     }
@@ -116,7 +122,7 @@ public class Materia_dao {
         try {
             em = new Entity_Manager().ent();
             em.getTransaction().begin();
-
+            materia = em.find(Materia_Model.class, materia.getIdMatricula());
             em.remove(materia);
             em.getTransaction().commit();
             bool = true;
@@ -147,4 +153,5 @@ public class Materia_dao {
             return list;
         }
     }
+    
 }

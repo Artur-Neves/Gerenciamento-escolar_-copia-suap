@@ -105,7 +105,8 @@ public class Cadastro_Turma_Controller {
                         for (int i= 0; i<materia_anterior.size(); i++){
                             excluir.add(materia_anterior.get(i));
                             for (int a=0; a<materia.size();a++){
-                                if(materia_anterior.get(i)==materia.get(a)){
+                                if(materia_anterior.get(i).getIdMatricula()==materia.get(a).getIdMatricula()){
+                                   
                                     excluir.remove(materia_anterior.get(i));
                                 }
                             }
@@ -204,7 +205,7 @@ public class Cadastro_Turma_Controller {
 
         }
         if (tem) {
-            materia.add(dao_materia.findByName("" + view.getjComboBox2().getSelectedItem()));
+            materia.add(dao_materia.selectAll().get(view.getjComboBox2().getSelectedIndex()));
             DefaultListModel n = new DefaultListModel();
             for (Materia_Model m : materia) {
                 n.addElement(m.getNome());
@@ -215,24 +216,23 @@ public class Cadastro_Turma_Controller {
     }
 
     public void exMateria() {
-        boolean remove = materia.remove(dao_materia.findByName("" + view.getjList1().getSelectedValue()));
+       materia.remove(view.getjList1().getSelectedIndex());
         DefaultListModel n = new DefaultListModel();
         for (Materia_Model m : materia) {
             n.addElement(m.getNome());
-            System.out.println(" a disgraça do valor do vetor: "+dao_materia.findByName("" + view.getjList1().getSelectedValue()).getNome());
-            System.out.println("a disgraça do valor no materia "+materia.get(0).getNome());
+
         }
         view.getjList1().removeAll();
         view.getjList1().setModel(n);
     }
 
     public boolean deleteAll(Turma_Model model) {
-        dao_al.deleteforTurma(model);
+    model = dao.findbyId(model.getIdTurma());
+            dao_al.deleteforTurma(model);
         dao_at.deleteforTurma(model);
         dao_a.deleteforTurma(model);
         dao_t.deleteforTurma(model);
-        dao_aula.deleteforTurma(model);
-        
+       dao_aula.deleteforTurma(model);
         return dao.delete(model);
     }
 

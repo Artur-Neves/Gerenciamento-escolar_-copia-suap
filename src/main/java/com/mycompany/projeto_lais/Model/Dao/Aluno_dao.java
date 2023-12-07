@@ -92,13 +92,13 @@ public class Aluno_dao {
         try {
             em = new Entity_Manager().ent();
             em.getTransaction().begin();
-            em.merge(aluno);
+            aluno = em.find(aluno.getClass(), aluno.getIdAluno());
             em.remove(aluno);
             em.getTransaction().commit();
             return true;
 
         } catch (Exception e) {
-            System.out.println("excluir aluno" + e);
+            System.out.println("excluir aluno - aluno" + e);
             em.getTransaction().rollback();
             return false;
         } finally {
@@ -188,12 +188,12 @@ public class Aluno_dao {
     }
 
     public Aluno_Model findById(int idAluno) {
-        String query = "select a from aluno a where a.id :id order by a.nome ";
+        String query = "select a from aluno a where a.idAluno = :id order by a.nome ";
         Aluno_Model a = null;
         try {
             em = new Entity_Manager().ent();
             em.getTransaction().begin();
-            a = (Aluno_Model) em.createQuery(query).setParameter("id", idAluno);
+            a = (Aluno_Model) em.createQuery(query).setParameter("id", idAluno).getSingleResult();
             em.getTransaction().commit();
 
         } catch (Exception e) {

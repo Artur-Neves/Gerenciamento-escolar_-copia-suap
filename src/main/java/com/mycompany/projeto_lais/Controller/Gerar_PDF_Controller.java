@@ -25,6 +25,12 @@ public class Gerar_PDF_Controller {
     private String estado;
     public Gerar_PDF_Controller(Gerar_PDF view) {
         this.view = view;
+
+         view.getjTextField2().setDocument( new Validacao(35));
+          view.getjTextField3().setDocument( new Validacao(35));
+           view.getjTextField4().setDocument( new Validacao(35));
+            view.getjTextField5().setDocument( new Validacao(35));
+
     }
 
     public String getPath() {

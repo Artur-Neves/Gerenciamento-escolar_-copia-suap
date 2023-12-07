@@ -7,7 +7,6 @@ package com.mycompany.projeto_lais.Model.Dao;
 import com.mycompany.projeto_lais.Model.Materia_Model;
 import com.mycompany.projeto_lais.Model.Turma_Model;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
 
 /**
@@ -145,6 +144,7 @@ public class Turma_dao {
         try {
             em = new Entity_Manager().ent();
         em.getTransaction().begin();
+        turma = em.find(Turma_Model.class, turma.getIdTurma());
         em.remove(turma);
         em.getTransaction().commit();
         return true;
@@ -178,6 +178,5 @@ public Turma_Model findbyId(int id){
     }
     
     }
-
 
 }

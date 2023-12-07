@@ -363,6 +363,7 @@ public void iniciarEditar(){
    jLabel1.setText("Editar Aluno");
    jButton3.setBackground(Color.YELLOW);
    jButton3.setText("Editar");
+   jComboBox1.setEnabled(false);
    c.iniciar();
 }
 public void iniciarExcluir(){

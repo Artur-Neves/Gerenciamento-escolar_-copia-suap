@@ -57,6 +57,7 @@ public class Cadastro_Materia_Controller {
     private Aluno_dao dao_a;
     private Aula_dao dao_aula;
     private Atividade_dao dao_t;
+    private List<Turma_Model> turmaAll;
     private boolean editar;
     
 
@@ -73,6 +74,7 @@ public class Cadastro_Materia_Controller {
         turma_antes = new ArrayList<>();
         excluidos = new ArrayList<>();
         materia = new Materia_Model();
+        turmaAll = new ArrayList<>();
     }
 
     
@@ -292,11 +294,12 @@ public class Cadastro_Materia_Controller {
 
     public void iniciar() {
         view.getjTextField1().setDocument( new Validacao(40));
-        if (dao_turma.selectAll().size() != 0) {
+       turmaAll = dao_turma.selectAll();
             for (Materia_Model m : dao.selectAll()) {
             view.getjComboBox2().addItem(m.getNome());
         }
-            for (Turma_Model t : dao_turma.selectAll()) {
+             if (dao_turma.selectAll().size() != 0) {
+            for (Turma_Model t : turmaAll) {
                 view.getjComboBox1().addItem(t.getNome());
             }
             view.getjPanel2().setVisible(true);
@@ -316,7 +319,7 @@ public class Cadastro_Materia_Controller {
           
         }
         if(tem){
-        turma.add(dao_turma.findByName("" + view.getjComboBox1().getSelectedItem()));
+        turma.add(turmaAll.get(view.getjComboBox1().getSelectedIndex()));
         DefaultListModel n = new DefaultListModel();
         for (Turma_Model t : turma) {
             n.addElement(t.getNome());
@@ -326,7 +329,7 @@ public class Cadastro_Materia_Controller {
     }}
 
     public void exMateria() {
-        turma.remove(dao_turma.findByName("" + view.getjList1().getSelectedValue()));
+        turma.remove( view.getjList1().getSelectedIndex());
         DefaultListModel n = new DefaultListModel();
         for (Turma_Model t : turma) {
             n.addElement(t.getNome());
@@ -353,7 +356,8 @@ public class Cadastro_Materia_Controller {
     }
     
     public boolean deleteMateria(Materia_Model materia){
-dao_al.deleteforMateria(materia);
+    materia = dao.findbyId(materia.getIdMatricula());
+    dao_al.deleteforMateria(materia);
     dao_at.deleteforMateria(materia);
     dao_aula.deleteforMateria(materia);
     dao_t.deleteforMateria(materia);

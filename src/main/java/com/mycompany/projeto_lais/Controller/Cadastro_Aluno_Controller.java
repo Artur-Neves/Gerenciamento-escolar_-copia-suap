@@ -103,7 +103,6 @@ public class Cadastro_Aluno_Controller {
             aluno.setNome(view.getjTextField1().getText());
             turma = dao_turma.findByName("" + view.getjComboBox1().getSelectedItem());
             aluno.setTurma(turma);
-            aluno = dao.findById(aluno.getIdAluno());
             if (dao.editar(aluno)){
                  view.imprimir_Na_Tela("Aluno editado com sucesso!");
                     view.hide();
@@ -146,6 +145,7 @@ public class Cadastro_Aluno_Controller {
  
  }
     public boolean deleteforAluno(Aluno_Model aluno){
+        aluno = dao.findById(aluno.getIdAluno());
         dao_aluno_atividade.deleteforAluno(aluno);
         dao_al.deleteforAluno(aluno);
         return dao.excluir(aluno);
