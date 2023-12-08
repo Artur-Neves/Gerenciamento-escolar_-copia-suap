@@ -47,8 +47,8 @@ public class Cadastro_Materia_Controller {
     // váriavel global para armazenar o tamanho das imagens
     private long tamanho;
     private Turma_dao dao_turma;
-    private List<Turma_Model> turma ;
-    private List<Turma_Model> turma_antes ;
+    private List<Turma_Model> turma;
+    private List<Turma_Model> turma_antes;
     private List<Turma_Model> excluidos;
     private Validacao validacao;
     private Turma_Materia_dao dao_tm;
@@ -59,7 +59,6 @@ public class Cadastro_Materia_Controller {
     private Atividade_dao dao_t;
     private List<Turma_Model> turmaAll;
     private boolean editar;
-    
 
     public Cadastro_Materia_Controller(Cadastro_Materia view) {
         this.view = view;
@@ -77,105 +76,120 @@ public class Cadastro_Materia_Controller {
         turmaAll = new ArrayList<>();
     }
 
-    
-
     public void inserir() {
-        editar=true;
-        if(!view.getjTextField1().getText().trim().isEmpty()){
-        if (view.getjButton1().getText().equals("Salvar")) {
-            if (imageBytes != null) {
+        editar = true;
+        if (!view.getjTextField1().getText().trim().isEmpty()) {
+            if (view.getjButton1().getText().equals("Salvar")) {
+                if (imageBytes != null) {
 
-                materia = new Materia_Model(view.getjTextField1().getText(), imageBytes);
-                if (dao.insert(materia)) {
-                    for (Turma_Model t : turma) {
-                        dao_turma.updateMateria(t, materia);
+                    materia = new Materia_Model(view.getjTextField1().getText(), imageBytes);
+                    if (dao.insert(materia)) {
+                        for (Turma_Model t : turma) {
+                            dao_turma.updateMateria(t, materia);
+                        }
+                        view.iprimir_Na_Tela("cadastro realizado com sucesso!");
+                        view.hide();
                     }
-                    view.iprimir_Na_Tela("cadastro realizado com sucesso!");
-                    view.hide();
-                }
-            } else {
-                materia = new Materia_Model( view.getjTextField1().getText());
+                } else {
+                    materia = new Materia_Model(view.getjTextField1().getText());
 
-                if (dao.insert(materia)) {
-                    for (Turma_Model t : turma) {
-                        dao_turma.updateMateria(t, materia);
+                    if (dao.insert(materia)) {
+                        for (Turma_Model t : turma) {
+                            dao_turma.updateMateria(t, materia);
+                        }
+                        view.iprimir_Na_Tela("cadastro realizado com sucesso!");
+                        view.hide();
+
+                    } else {
+                        Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Já existe uma materia com esse nome!", "", "Atenção", 0);
+                        m.setVisible(true);
                     }
-                    view.iprimir_Na_Tela("cadastro realizado com sucesso!");
-                    view.hide();
-
                 }
-                else{
-                   Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Já existe uma materia com esse nome!", "", "Atenção", 0);
-                   m.setVisible(true);
+            } else if (view.getjButton1().getText().equals("Editar")) {
+                materia.getTurma().clear();
+                if (imageBytes != null) {
+                    materia.setImagem(imageBytes);
                 }
-            }
-        } else if(view.getjButton1().getText().equals("Editar")) {
-            materia.getTurma().clear();
-            if (imageBytes != null){ materia.setImagem(imageBytes);}
-            if (turma_antes!=turma){
-                if ( turma_antes.size()!=0 ){
-                            if (turma.size()!=0){
-                        for (int i= 0; i<turma_antes.size(); i++){
-                            excluidos.add(turma_antes.get(i));
-                            for (int a=0; a<turma.size();a++){
-                                if(turma_antes.get(i)==turma.get(a)){
-                                    excluidos.remove(turma_antes.get(i));
+                if (turma_antes != turma) {
+                    if (turma_antes.size() != 0) {
+                        if (turma.size() != 0) {
+                            for (int i = 0; i < turma_antes.size(); i++) {
+                                excluidos.add(turma_antes.get(i));
+                                for (int a = 0; a < turma.size(); a++) {
+                                    if (turma_antes.get(i).getIdTurma() == turma.get(a).getIdTurma()) {
+                                        excluidos.remove(turma_antes.get(i));
+                                    }
                                 }
                             }
-                        }}
-                        else {
-                            excluidos =turma_antes;
-                        }}
-                 if (excluidos.size()!=0){
+                        } else {
+                            excluidos = turma_antes;
+                        }
+                    }
+                    if (excluidos.size() != 0) {
+                        System.out.println("Excluidos"+excluidos.get(0).getNome());
                         Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Ao desvincular uma turma de uma materia: atividades, notas", ", faltas e aulas serão apagados permanentemente", "Atenção");
-                    m.setVisible(true);
-                    if (m.retornar()) {
-                        m = new Menssagem_De_Confirmacao(null, true, "Tem certeza que deseja desvincular a materia: "+materia.getNome(), " da materia " + excluidos.get(0).getNome() + "?", "Este é o ultimo aviso!");
                         m.setVisible(true);
                         if (m.retornar()) {
-                        for (Turma_Model turma : excluidos){
-                            System.out.println("entrando aqui");
-                            deleteMateriaAndTM(turma,materia);
+                            m = new Menssagem_De_Confirmacao(null, true, "Tem certeza que deseja desvincular a materia: " + materia.getNome(), " da materia " + excluidos.get(0).getNome() + "?", "Este é o ultimo aviso!");
+                            m.setVisible(true);
+                            if (m.retornar()) {
+                                for (Turma_Model turma : excluidos) {
+                                    System.out.println("entrando aqui");
+                                    deleteMateriaAndTM(turma, materia);
+                                }
+
+                            } else {
+                                editar = false;
+                            }
+                        } else {
+                            editar = false;
                         }
-                        
-                       }
-                        else {
-                        editar=false;}
                     }
-                    else{
-                        editar=false;
-                    }}}
-                if (editar){
-                materia.setTurma(turma);
-                materia.setNome(view.getjTextField1().getText());
-                if (dao.editar(materia)) {
-                    view.iprimir_Na_Tela("Edição realizada com sucesso!");
-                    view.hide();
                 }
-                }
+                for (Turma_Model t: turma) {
+                    System.out.println("Turmas "+t.getNome());
+                    boolean edicao = true;
+                    for (Materia_Model m : t.getMateria()){
+                        if (m.getIdMatricula()==materia.getIdMatricula()){
+                            edicao=false;
+                        }
+                    }
+                        if (edicao) {
+                            System.out.println("Editou "+t.getNome());
+                                t.addMateria(materia);
+                                dao_turma.editar(t);
+                            }
+                        }
                 
-                else{
+               
+                if (editar) {
+                    materia.setTurma(turma);
+                    materia.setNome(view.getjTextField1().getText());
+                    if (dao.editar(materia)) {
+                        view.iprimir_Na_Tela("Edição realizada com sucesso!");
+                        view.hide();
+                    }
+                } else {
                     Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Já existe uma materia com esse nome!", "", "Atenção", 0);
-                   m.setVisible(true);
-                
+                    m.setVisible(true);
+
+                }
+            } else {
+                Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Ao excluir esta Matéria as atividades Aulas e notas", " serão apagados permanentemente", "Atenção");
+                m.setVisible(true);
+                if (m.retornar()) {
+                    m = new Menssagem_De_Confirmacao(null, true, "Tem certeza que quer apagar todos os dados", " da Materia: " + materia.getNome() + "?", "Este é o ultimo aviso!");
+                    m.setVisible(true);
+                    if (m.retornar()) {
+                        if (deleteMateria(materia)) {
+                            view.iprimir_Na_Tela("Exclusão realizada com sucesso!");
+                            view.hide();
+                        }
+                    }
+                }
 
             }
-        }
-        else{
-         Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "Ao excluir esta Matéria as atividades Aulas e notas", " serão apagados permanentemente", "Atenção");
-                    m.setVisible(true);
-                    if (m.retornar()) {
-                        m = new Menssagem_De_Confirmacao(null, true, "Tem certeza que quer apagar todos os dados", " da Materia: " + materia.getNome() + "?", "Este é o ultimo aviso!");
-                        m.setVisible(true);
-                        if (m.retornar()) {
-            if (deleteMateria(materia)){
-                view.iprimir_Na_Tela("Exclusão realizada com sucesso!");
-                    view.hide();
-            }}
-                    }
-            
-        }}
-        else{
+        } else {
             Menssagem_De_Confirmacao m = new Menssagem_De_Confirmacao(null, true, "O campo do nome não pode ficar vazio", "", "Atenção", 0);
             m.setVisible(true);
         }
@@ -212,27 +226,22 @@ public class Cadastro_Materia_Controller {
             }
             view.getjList1().removeAll();
             view.getjList1().setModel(n);
-        }
-        else{
-            
+        } else {
+
             try {
-            if  (view.getLabelImagem()!=null){
-            File url = new File("C:\\Users\\Artur\\Documents\\NetBeansProjects\\Projeto_Lais\\src\\main\\java\\com\\mycompany\\projeto_lais\\View\\img\\camera-dslr.png");
-            Image imagem = ImageIO.read(url);
-            view.getjButton6().setVisible(false);
-            view.getLabelImagem().setIcon(new ImageIcon(imagem));
-                }
-                else{
-            view.getjButton6().setVisible(true);
+                if (view.getLabelImagem() != null) {
+                    File url = new File("C:\\Users\\Artur\\Documents\\NetBeansProjects\\Projeto_Lais\\src\\main\\java\\com\\mycompany\\projeto_lais\\View\\img\\camera-dslr.png");
+                    Image imagem = ImageIO.read(url);
+                    view.getjButton6().setVisible(false);
+                    view.getLabelImagem().setIcon(new ImageIcon(imagem));
+                } else {
+                    view.getjButton6().setVisible(true);
                 }
             } catch (Exception e) {
             }
 
- 
-            
         }
     }
-    
 
     public void carregarFoto() {
         // Classe que vai gerar o próprio gerador de arquivos do Java
@@ -293,12 +302,12 @@ public class Cadastro_Materia_Controller {
     }
 
     public void iniciar() {
-        view.getjTextField1().setDocument( new Validacao(40));
-       turmaAll = dao_turma.selectAll();
-            for (Materia_Model m : dao.selectAll()) {
+        view.getjTextField1().setDocument(new Validacao(40));
+        turmaAll = dao_turma.selectAll();
+        for (Materia_Model m : dao.selectAll()) {
             view.getjComboBox2().addItem(m.getNome());
         }
-             if (dao_turma.selectAll().size() != 0) {
+        if (dao_turma.selectAll().size() != 0) {
             for (Turma_Model t : turmaAll) {
                 view.getjComboBox1().addItem(t.getNome());
             }
@@ -309,27 +318,28 @@ public class Cadastro_Materia_Controller {
     }
 
     public void addTurma() {
-         boolean tem = true;
+        boolean tem = true;
         for (Turma_Model m : turma) {
-             
-           if(m.getNome().equals(""+view.getjComboBox1().getSelectedItem())){
-               tem=false;
-               break;
-           }
-          
+
+            if (m.getNome().equals("" + view.getjComboBox1().getSelectedItem())) {
+                tem = false;
+                break;
+            }
+
         }
-        if(tem){
-        turma.add(turmaAll.get(view.getjComboBox1().getSelectedIndex()));
-        DefaultListModel n = new DefaultListModel();
-        for (Turma_Model t : turma) {
-            n.addElement(t.getNome());
+        if (tem) {
+            turma.add(turmaAll.get(view.getjComboBox1().getSelectedIndex()));
+            DefaultListModel n = new DefaultListModel();
+            for (Turma_Model t : turma) {
+                n.addElement(t.getNome());
+            }
+            view.getjList1().removeAll();
+            view.getjList1().setModel(n);
         }
-        view.getjList1().removeAll();
-        view.getjList1().setModel(n);
-    }}
+    }
 
     public void exMateria() {
-        turma.remove( view.getjList1().getSelectedIndex());
+        turma.remove(view.getjList1().getSelectedIndex());
         DefaultListModel n = new DefaultListModel();
         for (Turma_Model t : turma) {
             n.addElement(t.getNome());
@@ -339,30 +349,29 @@ public class Cadastro_Materia_Controller {
     }
 
     public void retirarImagem() {
-        
-    materia.setImagem(null);
-    imageBytes = null;
-    atualizar();
+
+        materia.setImagem(null);
+        imageBytes = null;
+        atualizar();
     }
-    
-    public void deleteMateriaAndTM(Turma_Model model, Materia_Model materia){
-     dao_al.deleteforTurmaAndMateria(model, materia);
+
+    public void deleteMateriaAndTM(Turma_Model model, Materia_Model materia) {
+        dao_al.deleteforTurmaAndMateria(model, materia);
         dao_at.deleteforTurmaAndMateria(model, materia);
         dao_aula.deleteforTurmaAndMateria(model, materia);
         dao_t.deleteforTurmaAndMateria(model, materia);
         dao_tm.deleteforTurmaAndMteria(model, materia);
-        
-        
+
     }
-    
-    public boolean deleteMateria(Materia_Model materia){
-    materia = dao.findbyId(materia.getIdMatricula());
-    dao_al.deleteforMateria(materia);
-    dao_at.deleteforMateria(materia);
-    dao_aula.deleteforMateria(materia);
-    dao_t.deleteforMateria(materia);
-    dao_tm.deleteforMateria(materia);
-    return dao.delete(materia);
-}
-    
+
+    public boolean deleteMateria(Materia_Model materia) {
+        materia = dao.findbyId(materia.getIdMatricula());
+        dao_al.deleteforMateria(materia);
+        dao_at.deleteforMateria(materia);
+        dao_aula.deleteforMateria(materia);
+        dao_t.deleteforMateria(materia);
+        dao_tm.deleteforMateria(materia);
+        return dao.delete(materia);
+    }
+
 }

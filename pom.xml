@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <exec.mainClass>com.mycompany.hibernatecurso.HibernateCurso</exec.mainClass>
+        <exec.mainClass>com.mycompany.projeto_lais.View.Materia</exec.mainClass>
          <itext.version>8.0.2</itext.version>
     </properties>
       <build>

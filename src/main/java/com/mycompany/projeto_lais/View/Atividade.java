@@ -90,9 +90,9 @@ Atividade_Controller c;
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setAutoscrolls(false);
         jTable1.setMinimumSize(new java.awt.Dimension(1530, 577));
         jTable1.setName(""); // NOI18N
-        jTable1.setPreferredSize(new java.awt.Dimension(1530, 577));
         jTable1.setRowHeight(25);
         jScrollPane4.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
@@ -218,9 +218,8 @@ Atividade_Controller c;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1532, Short.MAX_VALUE)
-                    .addComponent(jLabel0, javax.swing.GroupLayout.DEFAULT_SIZE, 1538, Short.MAX_VALUE)
+                    .addComponent(jLabel0, javax.swing.GroupLayout.DEFAULT_SIZE, 1532, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -233,11 +232,11 @@ Atividade_Controller c;
                 .addGap(38, 38, 38)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(1560, 795));
+        setSize(new java.awt.Dimension(1560, 693));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
  

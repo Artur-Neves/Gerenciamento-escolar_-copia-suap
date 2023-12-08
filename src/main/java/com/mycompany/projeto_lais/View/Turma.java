@@ -98,7 +98,7 @@ Turma_Controller c;
         text1.setText("+");
         text1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text1);
-        text1.setBounds(124, 182, 398, 174);
+        text1.setBounds(124, 124, 350, 150);
 
         text2.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text2.setForeground(new java.awt.Color(148, 0, 211));
@@ -106,7 +106,7 @@ Turma_Controller c;
         text2.setText("+");
         text2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text2);
-        text2.setBounds(570, 184, 398, 174);
+        text2.setBounds(530, 126, 350, 150);
 
         text3.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text3.setForeground(new java.awt.Color(148, 0, 211));
@@ -114,7 +114,7 @@ Turma_Controller c;
         text3.setText("+");
         text3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text3);
-        text3.setBounds(1010, 182, 398, 174);
+        text3.setBounds(930, 124, 350, 150);
 
         text4.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text4.setForeground(new java.awt.Color(148, 0, 211));
@@ -122,7 +122,7 @@ Turma_Controller c;
         text4.setText("+");
         text4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text4);
-        text4.setBounds(124, 374, 398, 174);
+        text4.setBounds(124, 302, 350, 150);
 
         text5.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text5.setForeground(new java.awt.Color(148, 0, 211));
@@ -130,7 +130,7 @@ Turma_Controller c;
         text5.setText("+");
         text5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text5);
-        text5.setBounds(570, 374, 398, 174);
+        text5.setBounds(532, 300, 350, 150);
 
         text6.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text6.setForeground(new java.awt.Color(148, 0, 211));
@@ -138,7 +138,7 @@ Turma_Controller c;
         text6.setText("+");
         text6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text6);
-        text6.setBounds(1012, 374, 398, 174);
+        text6.setBounds(934, 302, 350, 150);
 
         text7.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text7.setForeground(new java.awt.Color(148, 0, 211));
@@ -146,7 +146,7 @@ Turma_Controller c;
         text7.setText("+");
         text7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text7);
-        text7.setBounds(124, 568, 398, 174);
+        text7.setBounds(124, 482, 350, 150);
 
         text8.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text8.setForeground(new java.awt.Color(148, 0, 211));
@@ -154,7 +154,7 @@ Turma_Controller c;
         text8.setText("+");
         text8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text8);
-        text8.setBounds(570, 570, 398, 174);
+        text8.setBounds(536, 484, 350, 150);
 
         text9.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text9.setForeground(new java.awt.Color(148, 0, 211));
@@ -162,13 +162,13 @@ Turma_Controller c;
         text9.setText("+");
         text9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text9);
-        text9.setBounds(1012, 568, 398, 174);
+        text9.setBounds(936, 484, 350, 150);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Turmas");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1860, 134);
+        jLabel1.setBounds(0, 0, 1366, 96);
 
         btn1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn1.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -178,7 +178,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn1);
-        btn1.setBounds(123, 182, 400, 175);
+        btn1.setBounds(122, 124, 350, 150);
 
         btn4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn4.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -188,7 +188,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn4);
-        btn4.setBounds(123, 375, 400, 175);
+        btn4.setBounds(122, 302, 350, 150);
 
         btn2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn2.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -198,7 +198,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn2);
-        btn2.setBounds(569, 182, 400, 175);
+        btn2.setBounds(530, 124, 350, 150);
 
         btn9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn9.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -208,7 +208,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn9);
-        btn9.setBounds(1009, 568, 400, 175);
+        btn9.setBounds(936, 484, 350, 150);
 
         btn7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn7.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -218,7 +218,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn7);
-        btn7.setBounds(123, 568, 400, 175);
+        btn7.setBounds(122, 482, 350, 150);
 
         btn8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn8.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -228,7 +228,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn8);
-        btn8.setBounds(569, 568, 400, 175);
+        btn8.setBounds(534, 482, 350, 150);
 
         btn3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn3.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -238,7 +238,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn3);
-        btn3.setBounds(1009, 182, 400, 175);
+        btn3.setBounds(930, 124, 350, 150);
 
         btn6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn6.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -248,7 +248,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn6);
-        btn6.setBounds(1009, 375, 400, 175);
+        btn6.setBounds(932, 302, 350, 150);
 
         btn5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn5.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -258,7 +258,7 @@ Turma_Controller c;
             }
         });
         getContentPane().add(btn5);
-        btn5.setBounds(569, 375, 400, 175);
+        btn5.setBounds(532, 302, 350, 150);
 
         text10.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text10.setForeground(new java.awt.Color(148, 0, 211));
@@ -266,7 +266,7 @@ Turma_Controller c;
         text10.setText("+");
         text10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text10);
-        text10.setBounds(124, 182, 398, 174);
+        text10.setBounds(124, 124, 350, 150);
 
         jMenu1.setText("Operações");
 
@@ -301,7 +301,7 @@ Turma_Controller c;
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(1339, 607));
+        setSize(new java.awt.Dimension(1388, 761));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

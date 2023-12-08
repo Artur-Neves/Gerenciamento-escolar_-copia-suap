@@ -11,11 +11,11 @@
     <class>com.mycompany.projeto_lais.Model.Frequencia_Model</class>
     <class>com.mycompany.projeto_lais.Model.Aluno_Atividade_Model</class>
     <properties>
-      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+     
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Lais"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
     
-     // <property name="javax.persistence.jdbc.password" value="88180562"/>
+   
       <property name="javax.persistence.jdbc.password" value="postgres"/>
       <!-- DB Dialect -->
       <property name="hibernate.hbm2ddl.auto" value="update"/>

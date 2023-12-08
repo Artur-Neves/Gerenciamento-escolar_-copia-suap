@@ -90,7 +90,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text5.setText("+");
         text5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text5);
-        text5.setBounds(32, 240, 300, 126);
+        text5.setBounds(32, 222, 300, 126);
 
         text6.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text6.setForeground(new java.awt.Color(148, 0, 211));
@@ -98,7 +98,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text6.setText("+");
         text6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text6);
-        text6.setBounds(400, 242, 300, 126);
+        text6.setBounds(360, 224, 300, 126);
 
         text9.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text9.setForeground(new java.awt.Color(148, 0, 211));
@@ -106,7 +106,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text9.setText("+");
         text9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text9);
-        text9.setBounds(32, 402, 300, 126);
+        text9.setBounds(30, 368, 300, 126);
 
         text10.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text10.setForeground(new java.awt.Color(148, 0, 211));
@@ -114,7 +114,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text10.setText("+");
         text10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text10);
-        text10.setBounds(400, 402, 300, 126);
+        text10.setBounds(358, 368, 300, 126);
 
         text3.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text3.setForeground(new java.awt.Color(148, 0, 211));
@@ -122,7 +122,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text3.setText("+");
         text3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text3);
-        text3.setBounds(768, 78, 300, 126);
+        text3.setBounds(692, 78, 300, 126);
 
         text7.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text7.setForeground(new java.awt.Color(148, 0, 211));
@@ -130,7 +130,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text7.setText("+");
         text7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text7);
-        text7.setBounds(768, 240, 300, 126);
+        text7.setBounds(692, 224, 300, 126);
 
         text4.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text4.setForeground(new java.awt.Color(148, 0, 211));
@@ -138,7 +138,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text4.setText("+");
         text4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text4);
-        text4.setBounds(1138, 78, 300, 126);
+        text4.setBounds(1024, 78, 300, 126);
 
         text8.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text8.setForeground(new java.awt.Color(148, 0, 211));
@@ -146,7 +146,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text8.setText("+");
         text8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text8);
-        text8.setBounds(1136, 240, 300, 126);
+        text8.setBounds(1022, 222, 300, 126);
 
         text11.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text11.setForeground(new java.awt.Color(148, 0, 211));
@@ -154,7 +154,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text11.setText("+");
         text11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text11);
-        text11.setBounds(766, 402, 300, 126);
+        text11.setBounds(688, 368, 300, 126);
 
         text12.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text12.setForeground(new java.awt.Color(148, 0, 211));
@@ -162,7 +162,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text12.setText("+");
         text12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text12);
-        text12.setBounds(1136, 404, 300, 126);
+        text12.setBounds(1020, 370, 300, 126);
 
         text13.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text13.setForeground(new java.awt.Color(148, 0, 211));
@@ -170,7 +170,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text13.setText("+");
         text13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text13);
-        text13.setBounds(32, 562, 300, 126);
+        text13.setBounds(30, 510, 300, 126);
 
         text16.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text16.setForeground(new java.awt.Color(148, 0, 211));
@@ -178,7 +178,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text16.setText("+");
         text16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text16);
-        text16.setBounds(1136, 564, 300, 126);
+        text16.setBounds(1020, 512, 300, 126);
 
         text15.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text15.setForeground(new java.awt.Color(148, 0, 211));
@@ -186,7 +186,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text15.setText("+");
         text15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text15);
-        text15.setBounds(768, 566, 300, 126);
+        text15.setBounds(690, 514, 300, 126);
 
         text14.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text14.setForeground(new java.awt.Color(148, 0, 211));
@@ -194,7 +194,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text14.setText("+");
         text14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text14);
-        text14.setBounds(400, 564, 300, 126);
+        text14.setBounds(358, 512, 300, 126);
 
         text2.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
         text2.setForeground(new java.awt.Color(148, 0, 211));
@@ -202,7 +202,7 @@ private Materia_Controller c = new Materia_Controller (this);
         text2.setText("+");
         text2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(text2);
-        text2.setBounds(400, 78, 300, 126);
+        text2.setBounds(360, 78, 300, 126);
 
         btn3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -213,7 +213,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn3);
-        btn3.setBounds(768, 77, 300, 126);
+        btn3.setBounds(692, 78, 300, 126);
 
         btn5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -224,7 +224,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn5);
-        btn5.setBounds(32, 239, 300, 126);
+        btn5.setBounds(32, 222, 300, 126);
 
         btn9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -235,7 +235,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn9);
-        btn9.setBounds(32, 401, 300, 126);
+        btn9.setBounds(30, 368, 300, 126);
 
         btn10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -246,7 +246,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn10);
-        btn10.setBounds(400, 401, 300, 126);
+        btn10.setBounds(358, 368, 300, 126);
 
         btn1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -268,7 +268,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn6);
-        btn6.setBounds(400, 239, 300, 126);
+        btn6.setBounds(360, 222, 300, 126);
 
         btn2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -280,7 +280,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn2);
-        btn2.setBounds(400, 77, 300, 126);
+        btn2.setBounds(360, 78, 300, 126);
 
         btn11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -291,7 +291,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn11);
-        btn11.setBounds(768, 401, 300, 126);
+        btn11.setBounds(690, 368, 300, 126);
 
         btn7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -302,7 +302,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn7);
-        btn7.setBounds(768, 239, 300, 126);
+        btn7.setBounds(692, 222, 300, 126);
 
         btn14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -313,7 +313,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn14);
-        btn14.setBounds(400, 563, 300, 126);
+        btn14.setBounds(358, 512, 300, 126);
 
         btn13.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -324,7 +324,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn13);
-        btn13.setBounds(32, 563, 300, 126);
+        btn13.setBounds(30, 512, 300, 126);
 
         btn15.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -335,7 +335,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn15);
-        btn15.setBounds(768, 563, 300, 126);
+        btn15.setBounds(690, 512, 300, 126);
 
         btn4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -346,7 +346,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn4);
-        btn4.setBounds(1136, 77, 300, 126);
+        btn4.setBounds(1022, 78, 300, 126);
 
         btn16.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -357,7 +357,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn16);
-        btn16.setBounds(1136, 563, 300, 126);
+        btn16.setBounds(1020, 512, 300, 126);
 
         btn8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -368,7 +368,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn8);
-        btn8.setBounds(1136, 239, 300, 126);
+        btn8.setBounds(1022, 222, 300, 126);
 
         btn12.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -379,7 +379,7 @@ private Materia_Controller c = new Materia_Controller (this);
             }
         });
         getContentPane().add(btn12);
-        btn12.setBounds(1136, 401, 300, 126);
+        btn12.setBounds(1020, 368, 300, 126);
 
         jLabel0.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -411,7 +411,7 @@ private Materia_Controller c = new Materia_Controller (this);
 
         setJMenuBar(jMenuBar1);
 
-        setSize(new java.awt.Dimension(1518, 784));
+        setSize(new java.awt.Dimension(1458, 728));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
