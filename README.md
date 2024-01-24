@@ -24,7 +24,7 @@ As técnicas e tecnologias utilizadas no projeto foram:
 - **`Java Swing`**: É um toolkit de widget GUI (Interface Gráfica do Usuário) para uso com o Java.
 - **`POO (Programação Orientada a Objetos)`**: Paradigma que envolve o gerenciamento de classes, objetos, encapsulamento, herança e polimorfismo.
 - **`JPQL (Java Persistence Query Language)`**: É uma linguagem de consulta de objeto semelhante ao SQL, mas que opera em objetos Java, não em tabelas de banco de dados diretamente.
-- **`Itex`**: Biblioteca utilizada para a criação dod PDFs
+- **`iText`**: Biblioteca utilizada para a criação de PDFs.
 
 
 # 🛠️ Abrir e rodar o projeto
