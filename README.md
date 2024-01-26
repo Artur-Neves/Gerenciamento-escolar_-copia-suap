@@ -14,6 +14,17 @@ O Sistema de Gestão Acadêmica é uma aplicação desktop projetada para facili
 - **`Situação do Discente`**: Com base nos dados relativos à média do aluno, é possível determinar sua situação, que pode variar entre: "Aprovado(a) por recuperação", "Aprovado(a)", "Reprovado(a)" ou "Cursando".
 - **`Relatório dos Alunos`**: É possível acessar as informações dos alunos por meio de suas respectivas turmas. Dessa forma, o docente pode acessar, a qualquer momento, informações importantes, como a situação do aluno, presença, número de faltas, entre outros.
 - **`Geração de PDFs`**: Além de contar com um relatório abrangente, o sistema permite que o usuário faça o download do relatório em formato PDF e o salve no diretório de sua escolha.
+<div align="center">
+  <h2>Assista o vídeo de demonstração do projeto</h2>
+
+
+
+<a href="https://www.youtube.com/watch?v=il3Wyjw6ZMc" target="_blank"><img src="https://i.ytimg.com/vi/il3Wyjw6ZMc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDn7DFwBa8SC8HI3PxMkVXANT_eOA" alt="Assista ao vídeo" width="500"></a>
+
+
+
+  </div>
+  <br>
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
