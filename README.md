@@ -45,5 +45,5 @@ As técnicas e tecnologias utilizadas no projeto foram:
 -  Ache uma opção semelhante há **Open an Existing Project with Marven**.
 -  Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
 -  Crie um banco de dados usando o postgresql
--  redefina as informações deste banco de dados no arquivo "persistence.xml"
--  por fim execute o arquivo "Materia.java"
+-  Redefina as informações deste banco de dados no arquivo "persistence.xml"
+-  Por fim execute o arquivo "Materia.java"
